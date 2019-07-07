@@ -27,4 +27,4 @@ _autosave-*
 
 # Mine
 /References/*.pdf
-
+/kicad-pmod-master/*

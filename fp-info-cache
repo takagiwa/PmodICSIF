@@ -1,4 +1,4 @@
-217099736408530
+221547234552515
 Air_Coils_SML_NEOSID
 Neosid_Air-Coil_SML_1turn_HDM0131A
 
@@ -29742,6 +29742,27 @@ DirectFET_ST
 0
 0
 0
+kicad-pmod
+pmod_pin_array_6x2
+QMOD Pin Header 2 x 6 pins
+CONN
+0
+12
+12
+kicad-pmod
+pmod_pin_array_6x2_hs
+QMOD Pin Header 2 x 6 pins
+CONN
+0
+12
+12
+kicad-pmod
+pmod_pin_array_6x2_xadc
+QMOD Pin Header 2 x 6 pins
+CONN
+0
+12
+12
 labels
 Blank
 
