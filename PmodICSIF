@@ -1,0 +1,11 @@
+Qty,partname,description,lib
+0,"Conn_01x02","Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)","Connector_Generic"
+0,"Conn_01x03","Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)","Connector_Generic"
+0,"Conn_02x06_Top_Bottom","Generic connector, double row, 02x06, top/bottom pin numbering scheme (row 1: 1...pins_per_row, row2: pins_per_row+1 ... num_pins), script generated (kicad-library-utils/schlib/autogen/connector/)","Connector_Generic"
+0,"C","Unpolarized capacitor","Device"
+0,"CP","Polarized capacitor","Device"
+0,"D_Zener","Zener diode","Device"
+0,"LED","Light emitting diode","Device"
+0,"R","Resistor","Device"
+0,"MC7805CDTRKG","Linear Voltage Regulators 5V 1A Postive","LibraryLoader"
+0,"SN74LV1T125DBVR","Single Power Supply, Single BUFFER GATE w/ 3-State Output (active low enable)","LibraryLoader"
