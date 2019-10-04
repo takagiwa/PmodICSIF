@@ -335,14 +335,134 @@ use ieee.numeric_std.all;
 
 entity uart_fifo is
     generic (
+        DATA_WIDTH : integer := 8;
+        DEPTH      : integer := 16
     );
     port (
+        Clock   : in std_logic;
+        Reset   : in std_logic;
+
+        Wdata   : in std_logic_vector((DATA_WIDTH-1) downto 0);
+        Wvalid  : in std_logic;
+
+        Rdata   : out std_logic_vector((DATA_WIDTH-1) downto 0);
+        Rvalid  : out std_logic;
+        Renable : in std_logic;
+
+        Empty   : out std_logic;
+        Full    : out std_logic
     );
 end uart_fifo;
 
 architecture rtl of uart_fifo is
 
+    type TYPE_RAM is array(0 to (DEPTH-1)) of std_logic_vector((DATA_WIDTH-1) downto 0);
+    signal ram : TYPE_RAM;
+
+    type TYPE_RAM_ADDR is record
+        w : integer range 0 to (DEPTH-1);
+        r : integer range 0 to (DEPTH-1);
+    end record TYPE_RAM_ADDR;
+    signal r_ram_addr : TYPE_RAM_ADDR;
+
+    type TYPE_OUTPUT is record
+        data  : std_logic_vector(7 downto 0);
+        valid : std_logic;
+    end record TYPE_OUTPUT;
+    signal r_output : TYPE_OUTPUT;
+
+    type TYPE_STATUS is record
+        empty : std_logic;
+        full  : std_logic;
+    end record TYPE_STATUS;
+    signal r_status : TYPE_STATUS;
+
 begin
+
+    ctrl_proc: process(Clock)
+        variable v_dcount : integer range 0 to DEPTH;
+    begin
+        if (rising_edge(Clock)) then
+            if (Reset = '1') then
+                r_status.full <= '0';
+                r_status.empty <= '1';
+                r_ram_addr.w <= 0;
+                r_ram_addr.r <= 0;
+                v_dcount := 0;
+            else
+                -- status signals
+                if ((Renable = '0') and (Wvalid = '1') and (v_dcount = (DEPTH-1))) then
+                    r_status.full <= '1';
+                elsif (v_dcount = DEPTH) then
+                    r_status.full <= '1';
+                elsif ((Wvalid = '0') and (Renable = '1') and (v_dcount = DEPTH)) then
+                    r_status.full <= '0';
+                else
+                    r_status.full <= '0';
+                end if;
+                if ((Wvalid = '0') and (Renable = '1') and (v_dcount = 1)) then
+                    r_status.empty <= '1';
+                elsif (v_dcount = 0) then
+                    r_status.empty <= '1';
+                elsif ((Renable = '0') and (Wvalid = '1') and (v_dcount = 0)) then
+                    r_status.empty <= '0';
+                else
+                    r_status.empty <= '0';
+                end if;
+
+                -- address counter
+                if ((v_dcount < (DEPTH-1)) and (Wvalid = '1')) then
+                    if (r_ram_addr.w = (DEPTH-1)) then
+                        r_ram_addr.w <= 0;
+                    else
+                        r_ram_addr.w <= r_ram_addr.w + 1;
+                    end if;
+                end if;
+                if ((v_dcount > 0) and (Renable = '1')) then
+                    if (r_ram_addr.r = (DEPTH-1)) then
+                        r_ram_addr.r <= 0;
+                    else
+                        r_ram_addr.r <= r_ram_addr.r + 1;
+                    end if;
+                end if;
+
+                -- data counter
+                if ((Wvalid = '1') and (Renable = '1')) then
+                    v_dcount := v_dcount;
+                elsif (Wvalid = '1') then
+                    if (v_dcount < DEPTH) then
+                        v_dcount := v_dcount + 1;
+                    end if;
+                elsif (Renable = '1') then
+                    if (v_dcount > 0) then
+                        v_dcount := v_dcount - 1;
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
+
+    ram_proc: process(Clock)
+    begin
+        if (rising_edge(Clock)) then
+            if (Reset = '1') then
+                r_output.data <= (others => '0');
+                r_output.valid <= '0';
+            else
+                if ((Wvalid = '1') and (r_status.full = '0')) then
+                    ram(r_ram_addr.w) <= Wdata;
+                end if;
+                r_output.data <= ram(r_ram_addr.r);
+                r_output.valid <= Renable;
+            end if;
+        end if;
+    end process;
+
+    Rdata  <= r_output.data;
+    Rvalid <= r_output.valid;
+
+    Empty <= r_status.empty;
+    Full  <= r_status.full;
 
 end rtl;
 
@@ -591,6 +711,248 @@ begin
 
     -- TODO: check receive data
     -- TODO: insert parity error
+
+end sim;
+
+------------------------------------------------------------------------------
+
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity uart_fifo_sim is
+end uart_fifo_sim;
+
+architecture sim of uart_fifo_sim is
+
+    constant CLK_CYCLE : time := 10 ns;
+
+    component uart_fifo
+        generic (
+            DATA_WIDTH : integer := 8;
+            DEPTH      : integer := 16
+        );
+        port (
+            Clock   : in std_logic;
+            Reset   : in std_logic;
+
+            Wdata   : in std_logic_vector((DATA_WIDTH-1) downto 0);
+            Wvalid  : in std_logic;
+
+            Rdata   : out std_logic_vector((DATA_WIDTH-1) downto 0);
+            Rvalid  : out std_logic;
+            Renable : in std_logic;
+
+            Empty   : out std_logic;
+            Full    : out std_logic
+        );
+    end component;
+
+    signal clock   : std_logic;
+    signal reset   : std_logic;
+    signal wdata   : std_logic_vector(7 downto 0);
+    signal wvalid  : std_logic;
+    signal rdata   : std_logic_vector(7 downto 0);
+    signal rvalid  : std_logic;
+    signal renable : std_logic;
+    signal empty   : std_logic;
+    signal full    : std_logic;
+
+begin
+
+    clk_gen_proc: process
+    begin
+        clock <= '1';
+        wait for CLK_CYCLE/2;
+        clock <= '0';
+        wait for CLK_CYCLE/2;
+    end process;
+
+    reset_gen_proc: process
+    begin
+        reset <= '1';
+        wait for CLK_CYCLE*3;
+        wait for CLK_CYCLE/2;
+        reset <= '0';
+        wait;
+    end process;
+
+    uut: uart_fifo
+        generic map (
+            DATA_WIDTH => 8,
+            DEPTH      => 4
+        )
+        port map (
+            Clock   => clock,
+            Reset   => reset,
+
+            Wdata   => wdata,
+            Wvalid  => wvalid,
+
+            Rdata   => rdata,
+            Rvalid  => rvalid,
+            Renable => renable,
+
+            Empty   => empty,
+            Full    => full
+        );
+
+    process
+    begin
+        wdata <= (others => 'Z');
+        wvalid <= '0';
+        renable <= '0';
+
+        wait for CLK_CYCLE * 10;
+        wait for CLK_CYCLE/2;
+
+        if (empty /= '1') then report "Something wrong at Empty port." severity failure; end if;
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        wait for CLK_CYCLE;
+
+        -- write start
+
+        wdata <= X"01";
+        wvalid <= '1';
+        wait for CLK_CYCLE;
+        wdata <= (others => 'Z');
+        wvalid <= '0';
+
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        wait for CLK_CYCLE;
+
+        wdata <= X"02";
+        wvalid <= '1';
+        wait for CLK_CYCLE;
+        wdata <= (others => 'Z');
+        wvalid <= '0';
+
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        wait for CLK_CYCLE;
+
+        wdata <= X"03";
+        wvalid <= '1';
+        wait for CLK_CYCLE;
+        wdata <= (others => 'Z');
+        wvalid <= '0';
+
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        wait for CLK_CYCLE;
+
+        wdata <= X"04";
+        wvalid <= '1';
+        wait for CLK_CYCLE;
+        wdata <= (others => 'Z');
+        wvalid <= '0';
+
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (full /= '1') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        wait for CLK_CYCLE;
+
+        wdata <= (others => 'Z');
+        wvalid <= '1';
+        wait for CLK_CYCLE;
+        wdata <= (others => 'Z');
+        wvalid <= '0';
+
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (full /= '1') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        -- write end
+
+        -- read start
+
+        renable <= '1';
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (rvalid /= '1') then report "Something wrong at Rvalid port." severity failure; end if;
+        if (rdata /= X"01") then report "Something wront at Rdata port." severity failure; end if;
+
+        renable <= '0';
+        wait for CLK_CYCLE;
+
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        renable <= '1';
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (rvalid /= '1') then report "Something wrong at Rvalid port." severity failure; end if;
+        if (rdata /= X"02") then report "Something wront at Rdata port." severity failure; end if;
+
+        renable <= '0';
+        wait for CLK_CYCLE;
+
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        renable <= '1';
+        wait for CLK_CYCLE;
+
+        if (empty /= '0') then report "Something wrong at Empty port." severity failure; end if;
+        if (rvalid /= '1') then report "Something wrong at Rvalid port." severity failure; end if;
+        if (rdata /= X"03") then report "Something wront at Rdata port." severity failure; end if;
+
+        renable <= '0';
+        wait for CLK_CYCLE;
+
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        renable <= '1';
+        wait for CLK_CYCLE;
+
+        if (empty /= '1') then report "Something wrong at Empty port." severity failure; end if;
+        if (rvalid /= '1') then report "Something wrong at Rvalid port." severity failure; end if;
+        if (rdata /= X"04") then report "Something wront at Rdata port." severity failure; end if;
+
+        renable <= '0';
+        wait for CLK_CYCLE;
+
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+        if (rvalid /= '0') then report "Something wrong at Rvalid port." severity failure; end if;
+
+        renable <= '1';
+        wait for CLK_CYCLE;
+
+        if (empty /= '1') then report "Something wrong at Empty port." severity failure; end if;
+        if (rvalid /= '1') then report "Something wrong at Rvalid port." severity failure; end if;
+        if (rdata /= X"01") then report "Something wront at Rdata port." severity failure; end if; -- return to first data
+
+        renable <= '0';
+        wait for CLK_CYCLE;
+
+        if (full /= '0') then report "Something wrong at Full port." severity failure; end if;
+
+        -- read end
+
+        wait;
+    end process;
 
 end sim;
 
