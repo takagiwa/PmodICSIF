@@ -17,10 +17,14 @@ entity icsuart0_v1_0_S00_AXI is
 	port (
 		-- Users to add ports here
 
-		Reg_0	: out std_logic_vector(31 downto 0);
-		Reg_1	: out std_logic_vector(31 downto 0);
-		Reg_2	: out std_logic_vector(31 downto 0);
-		Reg_3	: out std_logic_vector(31 downto 0);
+		Control	: out std_logic_vector(31 downto 0);
+		Status	: in std_logic_vector(31 downto 0);
+		Status_clear	: out std_logic_vector(31 downto 0);
+		TxData	: out std_logic_vector(31 downto 0);
+		TxData_valid	: out std_logic;
+		RxData	: in std_logic_vector(31 downto 0);
+		RxData_valid	: in std_logic;
+		RxData_read	: out std_logic;
 
 		-- User ports ends
 		-- Do not modify the ports beyond this line
@@ -108,7 +112,7 @@ architecture arch_imp of icsuart0_v1_0_S00_AXI is
 	-- ADDR_LSB = 2 for 32 bits (n downto 2)
 	-- ADDR_LSB = 3 for 64 bits (n downto 3)
 	constant ADDR_LSB  : integer := (C_S_AXI_DATA_WIDTH/32)+ 1;
-	constant OPT_MEM_ADDR_BITS : integer := 1;
+	constant OPT_MEM_ADDR_BITS : integer := 2;
 	------------------------------------------------
 	---- Signals for user logic register space example
 	--------------------------------------------------
@@ -122,6 +126,10 @@ architecture arch_imp of icsuart0_v1_0_S00_AXI is
 	signal reg_data_out	:std_logic_vector(C_S_AXI_DATA_WIDTH-1 downto 0);
 	signal byte_index	: integer;
 	signal aw_en	: std_logic;
+
+	signal r_status_clear : std_logic_vector(31 downto 0);
+	signal r_txdata_valid : std_logic;
+	signal r_rxdata_read : std_logic;
 
 begin
 	-- I/O Connections assignments
@@ -227,7 +235,7 @@ begin
 	      loc_addr := axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 	      if (slv_reg_wren = '1') then
 	        case loc_addr is
-	          when b"00" =>
+	          when b"000" =>
 	            for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
@@ -235,7 +243,7 @@ begin
 	                slv_reg0(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
-	          when b"01" =>
+	          when b"001" =>
 	            for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
@@ -243,7 +251,7 @@ begin
 	                slv_reg1(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
-	          when b"10" =>
+	          when b"010" =>
 	            for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
@@ -251,19 +259,19 @@ begin
 	                slv_reg2(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
-	          when b"11" =>
-	            for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
-	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
-	                -- Respective byte enables are asserted as per write strobes                   
-	                -- slave registor 3
-	                slv_reg3(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
-	              end if;
-	            end loop;
+--	          when b"011" =>
+--	            for byte_index in 0 to (C_S_AXI_DATA_WIDTH/8-1) loop
+--	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
+--	                -- Respective byte enables are asserted as per write strobes                   
+--	                -- slave registor 3
+--	                slv_reg3(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--	              end if;
+--	            end loop;
 	          when others =>
 	            slv_reg0 <= slv_reg0;
 	            slv_reg1 <= slv_reg1;
 	            slv_reg2 <= slv_reg2;
-	            slv_reg3 <= slv_reg3;
+--	            slv_reg3 <= slv_reg3;
 	        end case;
 	      end if;
 	    end if;
@@ -357,13 +365,13 @@ begin
 	    -- Address decoding for reading registers
 	    loc_addr := axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 	    case loc_addr is
-	      when b"00" =>
+	      when b"000" =>
 	        reg_data_out <= slv_reg0;
-	      when b"01" =>
-	        reg_data_out <= slv_reg1;
-	      when b"10" =>
+	      when b"001" =>
+	        reg_data_out <= Status; -- slv_reg1;
+	      when b"010" =>
 	        reg_data_out <= slv_reg2;
-	      when b"11" =>
+	      when b"011" =>
 	        reg_data_out <= slv_reg3;
 	      when others =>
 	        reg_data_out  <= (others => '0');
@@ -391,10 +399,52 @@ begin
 
 	-- Add user logic here
 
-	Reg_0 <= slv_reg0;
-	Reg_1 <= slv_reg1;
-	Reg_2 <= slv_reg2;
-	Reg_3 <= slv_reg3;
+	process( S_AXI_ACLK ) is
+	variable v_status_clear_trig : std_logic;
+	begin
+	  if (rising_edge (S_AXI_ACLK)) then
+	    if ( S_AXI_ARESETN = '0' ) then
+	      r_status_clear  <= (others => '0');
+	      v_status_clear_trig := '0';
+	      r_txdata_valid <= '0';
+	      r_rxdata_read <= '0';
+	      slv_reg3 <= (others => '0');
+	    else
+	      if (v_status_clear_trig = '1') then
+	        r_status_clear <= slv_reg1;
+	      else
+	        r_status_clear <= (others => '0');
+	      end if;
+	      if ((slv_reg_wren = '1') and (axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB) = b"001")) then
+	        v_status_clear_trig := '1';
+	      else
+	        v_status_clear_trig := '0';
+	      end if;
+
+	      if ((slv_reg_wren = '1') and (axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB) = b"010")) then
+	        r_txdata_valid <= '1';
+	      else
+	        r_txdata_valid <= '0';
+	      end if;
+
+	      if ((slv_reg_rden = '1') and (axi_araddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB) = b"011")) then
+	        r_rxdata_read <= '1';
+	      else
+	        r_rxdata_read <= '0';
+	      end if;
+
+	      if (RxData_valid = '1') then
+	        slv_reg3 <= RxData;
+	      end if;
+	    end if;
+	  end if;
+	end process;
+
+	Control <= slv_reg0;
+	Status_clear <= r_status_clear;
+	TxData <= slv_reg2;
+	TxData_valid <= r_txdata_valid;
+	RxData_read <= r_rxdata_read;
 
 	-- User logic ends
 

@@ -22,6 +22,7 @@ entity icsuart0_core is
 
         RxData          : out std_logic_vector(31 downto 0);
         RxData_valid    : out std_logic;
+        RxData_read     : in std_logic;
 
         TxD             : out std_logic;
         RxD             : in std_logic;
@@ -115,7 +116,6 @@ architecture rtl of icsuart0_core is
     type TYPE_RX_FIFO is record
         wdata   : std_logic_vector(31 downto 0);
         wvalid  : std_logic;
-        renable : std_logic;
         empty   : std_logic;
         full    : std_logic;
     end record TYPE_RX_FIFO;
@@ -124,6 +124,9 @@ architecture rtl of icsuart0_core is
     signal r_tx_end : std_logic;
     signal r_rx_end : std_logic;
     signal r_flag   : std_logic; -- must monitor at status
+
+    signal s_tx_num_bytes : integer range 0 to 3;
+    signal r_tx_data : std_logic_vector(31 downto 0);
 
 begin
 
@@ -151,43 +154,70 @@ begin
             Full    => tx_fifo.full
         );
 
+    s_tx_num_bytes <= 3 when (r_tx_data(7 downto 5) = "100") -- position
+                 else 2 when (r_tx_data(7 downto 5) = "101") -- read
+                 else 3 when (r_tx_data(7 downto 5) = "110") -- write
+                 else 0;
+
     process(S00_axi_aclk)
+        variable v_byte_count : integer range 0 to 3;
     begin
         if (rising_edge(S00_axi_aclk)) then
             if (S00_axi_aresetn = '0') then
+                tx_stat <= STAT_TX_IDLE;
+                tx_fifo.renable <= '0';
+                tx.valid <= '0';
             else
                 case tx_stat is
                     when STAT_TX_END =>
                         -- set flag
                         -- goto idle
+                        tx_stat <= STAT_TX_IDLE;
 
                     when STAT_TX_WAIT =>
-                        if (byte count = (number of bytes-1)) then
-                            -- goto end
-                        else
-                            -- increment byte count
-                            -- goto transmit
+                        if (tx.ready = '1') then
+                            tx_stat <= STAT_TX_END;
                         end if;
 
                     when STAT_TX_TRANSMIT =>
-                        if (ready) then
+                        if (tx.ready = '1') then
                             -- write selected byte to uart_tx
+                            tx.data <= r_tx_data( (8 * (v_byte_count + 1) - 1) downto (8 * v_byte_count) );
+                            tx.valid <= '1';
+                            v_byte_count := v_byte_count + 1;
+                            if (v_byte_count >= s_tx_num_bytes) then
+                                tx_stat <= STAT_TX_WAIT;
+                            end if;
+                        else
+                            tx.valid <= '0';
                         end if;
 
                     when STAT_TX_GET_DATA =>
-                        if (valid) then
+                        if (tx_fifo.rvalid = '1') then
                             -- get word
-                            -- determine number of bytes
+                            r_tx_data <= tx_fifo.rdata;
                             -- goto transmit
+                            tx_stat <= STAT_TX_TRANSMIT;
                         end if;
+                        tx_fifo.renable <= '0';
+                        v_byte_count := 0;
 
                     when STAT_TX_IDLE =>
-                        if ((not empty) and (flag cleared)) then
+                        if (tx_fifo.empty = '0') then
                             -- assert read signal
+                            tx_fifo.renable <= '1';
                             -- goto read command
+                            tx_stat <= STAT_TX_GET_DATA;
+                        else
+                            tx_fifo.renable <= '0';
                         end if;
+
                     when others =>
                         -- goto idle state
+                        tx_stat <= STAT_TX_IDLE;
+                        tx_fifo.renable <= '0';
+                        tx.valid <= '0';
+
                 end case;
             end if;
         end if;
@@ -217,15 +247,21 @@ begin
     begin
         if (rising_edge(S00_axi_aclk)) then
             if (S00_axi_aresetn = '0') then
+                r_flag <= '0';
             else
                 -- flag
+                if () then
+                    r_flag <= '0';
+                elsif (tx_stat = STAT_TX_END) then
+                    r_flag <= '1';
+                end if;
             end if;
         end if;
     end process;
 
     ----------------------------------
 
-    i_tx_fifo: uart_fifo
+    i_rx_fifo: uart_fifo
         generic map (
             DATA_WIDTH => 32,
             DEPTH      => 16
@@ -239,46 +275,70 @@ begin
 
             Rdata   => RxData,
             Rvalid  => RxData_valid,
-            Renable => rx_fifo.renable,
+            Renable => RxData_read,
 
             Empty   => rx_fifo.empty,
             Full    => rx_fifo.full
         );
 
     process(S00_axi_aclk)
+        variable v_byte_count : integer range 0 to 4;
+        variable v_num_bytes : integer range 0 to 4;
+        variable v_word_count : integer range 0 to 1;
     begin
         if (rising_edge(S00_axi_aclk)) then
             if (S00_axi_aresetn = '0') then
+                v_byte_count := 0;
+                v_num_bytes := 0;
+                v_word_count := 0;
             else
                 if (final byte write) then
                     -- flag clear
                     -- write to fifo
                 end if;
 
-                if (flag set) then
-                    if (word count = 1) then
+                if (r_flag = '1') then
+                    if (v_word_count = 1) then
                         if (valid byte count) then
                             -- write byte to word
                         end if;
                     end if;
                 end if;
 
-                if (flag clear) then
+                if (r_flag = '0') then
                     -- byte count clear
+                    v_byte_count := 0;
                     -- word count clear
-                elsif (valid) then
-                    if ((word count = 0) and (byte count = 0)) then
+                    v_word_count := 0;
+                    v_num_bytes := 0;
+                elsif (rx.valid = '1') then
+                    if ((v_byte_count = 0) and (v_word_count = 0)) then
                         -- determine number of bytes at word count 0 and 1
+                        case rx.data(7 downto 5) is
+                            when "110" =>
+                                v_num_bytes := 3;
+                            when "101" =>
+                                v_num_bytes := 2;
+                            when "100" =>
+                                v_num_bytes := 3;
+                            when others =>
+                                v_num_bytes := 1;
+                        end case;
+                        v_byte_count := v_byte_count + 1;
                     elsif (word count = 1) then
-                        if (byte count < number of bytes at word count 1) then
+                        if (v_byte_count < number of bytes at word count 1) then
                             -- increase byte count
+                            v_byte_count := v_byte_count + 1;
                         end if;
                     else -- word count = 0
-                        if (byte count = number of bytes at word count 0) then
+                        if (v_byte_count = (v_num_bytes - 1)) then
                             -- increase word count
+                            v_word_count := v_word_count + 1;
                             -- clear byte count
+                            v_byte_count := 0;
                         else
                             -- increase byte count
+                            v_byte_count := v_byte_count + 1;
                         end if;
                     end if;
                 end if;
