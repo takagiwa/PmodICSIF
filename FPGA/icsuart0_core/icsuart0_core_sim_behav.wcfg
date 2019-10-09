@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="icsuart0_core_sim_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="icsuart0_core_sim" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="131800000001fs"></ZoomEndTime>
+      <Cursor1Time time="0fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="175"></NameColumnWidth>
+      <ValueColumnWidth column_width="122"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="29" />
+   <wvobject fp_name="/icsuart0_core_sim/clock" type="logic">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/resetn" type="logic">
+      <obj_property name="ElementShortName">resetn</obj_property>
+      <obj_property name="ObjectShortName">resetn</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/control" type="array">
+      <obj_property name="ElementShortName">control[31:0]</obj_property>
+      <obj_property name="ObjectShortName">control[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/status" type="array">
+      <obj_property name="ElementShortName">status[31:0]</obj_property>
+      <obj_property name="ObjectShortName">status[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/status_clear" type="array">
+      <obj_property name="ElementShortName">status_clear[31:0]</obj_property>
+      <obj_property name="ObjectShortName">status_clear[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/txdata" type="array">
+      <obj_property name="ElementShortName">txdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">txdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/txdata_valid" type="logic">
+      <obj_property name="ElementShortName">txdata_valid</obj_property>
+      <obj_property name="ObjectShortName">txdata_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/rxdata" type="array">
+      <obj_property name="ElementShortName">rxdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rxdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/rxdata_valid" type="logic">
+      <obj_property name="ElementShortName">rxdata_valid</obj_property>
+      <obj_property name="ObjectShortName">rxdata_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/rxdata_read" type="logic">
+      <obj_property name="ElementShortName">rxdata_read</obj_property>
+      <obj_property name="ObjectShortName">rxdata_read</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/txd" type="logic">
+      <obj_property name="ElementShortName">txd</obj_property>
+      <obj_property name="ObjectShortName">txd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/rxd" type="logic">
+      <obj_property name="ElementShortName">rxd</obj_property>
+      <obj_property name="ObjectShortName">rxd</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/oe" type="logic">
+      <obj_property name="ElementShortName">oe</obj_property>
+      <obj_property name="ObjectShortName">oe</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider71">
+      <obj_property name="label">internal</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/tx" type="array">
+      <obj_property name="ElementShortName">tx</obj_property>
+      <obj_property name="ObjectShortName">tx</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/tx_fifo" type="array">
+      <obj_property name="ElementShortName">tx_fifo</obj_property>
+      <obj_property name="ObjectShortName">tx_fifo</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/rx" type="array">
+      <obj_property name="ElementShortName">rx</obj_property>
+      <obj_property name="ObjectShortName">rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/rx_fifo" type="array">
+      <obj_property name="ElementShortName">rx_fifo</obj_property>
+      <obj_property name="ObjectShortName">rx_fifo</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/r_tx_end" type="logic">
+      <obj_property name="ElementShortName">r_tx_end</obj_property>
+      <obj_property name="ObjectShortName">r_tx_end</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/r_rx_end" type="logic">
+      <obj_property name="ElementShortName">r_rx_end</obj_property>
+      <obj_property name="ObjectShortName">r_rx_end</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/r_flag" type="logic">
+      <obj_property name="ElementShortName">r_flag</obj_property>
+      <obj_property name="ObjectShortName">r_flag</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/s_tx_num_bytes" type="other">
+      <obj_property name="ElementShortName">s_tx_num_bytes</obj_property>
+      <obj_property name="ObjectShortName">s_tx_num_bytes</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/r_tx_data" type="array">
+      <obj_property name="ElementShortName">r_tx_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_tx_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/r_rx_data" type="array">
+      <obj_property name="ElementShortName">r_rx_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">r_rx_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/uut/tx_stat" type="other">
+      <obj_property name="ElementShortName">tx_stat</obj_property>
+      <obj_property name="ObjectShortName">tx_stat</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider3327">
+      <obj_property name="label">fifo</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/i_delay_fifo/r_ram_addr" type="array">
+      <obj_property name="ElementShortName">r_ram_addr</obj_property>
+      <obj_property name="ObjectShortName">r_ram_addr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/i_delay_fifo/r_output" type="array">
+      <obj_property name="ElementShortName">r_output</obj_property>
+      <obj_property name="ObjectShortName">r_output</obj_property>
+   </wvobject>
+   <wvobject fp_name="/icsuart0_core_sim/i_delay_fifo/r_status" type="array">
+      <obj_property name="ElementShortName">r_status</obj_property>
+      <obj_property name="ObjectShortName">r_status</obj_property>
+   </wvobject>
+</wave_config>

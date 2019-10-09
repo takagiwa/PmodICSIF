@@ -9,7 +9,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity icsuart0_core is
-    port map (
+    port (
         S00_axi_aclk    : in std_logic;
         S00_axi_aresetn : in std_logic;
 
@@ -121,12 +121,18 @@ architecture rtl of icsuart0_core is
     end record TYPE_RX_FIFO;
     signal rx_fifo : TYPE_RX_FIFO;
 
-    signal r_tx_end : std_logic;
-    signal r_rx_end : std_logic;
+--    signal r_tx_end : std_logic;
+--    signal r_rx_end : std_logic;
     signal r_flag   : std_logic; -- must monitor at status
 
     signal s_tx_num_bytes : integer range 0 to 3;
     signal r_tx_data : std_logic_vector(31 downto 0);
+    signal r_rx_data : std_logic_vector(31 downto 0);
+
+    type TYPE_STAT_TX is (STAT_TX_IDLE, STAT_TX_GET_DATA, STAT_TX_TRANSMIT, STAT_TX_WAIT, STAT_TX_END);
+    signal tx_stat : TYPE_STAT_TX;
+
+
 
 begin
 
@@ -172,15 +178,20 @@ begin
                     when STAT_TX_END =>
                         -- set flag
                         -- goto idle
-                        tx_stat <= STAT_TX_IDLE;
+                        if (tx.ready = '1') then
+                            tx_stat <= STAT_TX_IDLE;
+                        end if;
 
                     when STAT_TX_WAIT =>
                         if (tx.ready = '1') then
                             tx_stat <= STAT_TX_END;
                         end if;
+                        tx.valid <= '0';
 
                     when STAT_TX_TRANSMIT =>
-                        if (tx.ready = '1') then
+                        if (tx.valid = '1') then
+                            tx.valid <= '0';
+                        elsif (tx.ready = '1') then
                             -- write selected byte to uart_tx
                             tx.data <= r_tx_data( (8 * (v_byte_count + 1) - 1) downto (8 * v_byte_count) );
                             tx.valid <= '1';
@@ -201,6 +212,7 @@ begin
                         end if;
                         tx_fifo.renable <= '0';
                         v_byte_count := 0;
+                        tx.valid <= '0';
 
                     when STAT_TX_IDLE =>
                         if (tx_fifo.empty = '0') then
@@ -250,9 +262,9 @@ begin
                 r_flag <= '0';
             else
                 -- flag
-                if () then
+                if (rx_fifo.wvalid = '1') then
                     r_flag <= '0';
-                elsif (tx_stat = STAT_TX_END) then
+                elsif ((tx_stat = STAT_TX_END) and (tx.ready = '1')) then
                     r_flag <= '1';
                 end if;
             end if;
@@ -292,15 +304,23 @@ begin
                 v_num_bytes := 0;
                 v_word_count := 0;
             else
-                if (final byte write) then
+                if (rx_fifo.wvalid = '1') then
+                    rx_fifo.wvalid <= '0';
+                elsif ((r_flag = '1') and (rx.valid = '1') and (v_word_count = 1) and (v_byte_count = (v_num_bytes-1))) then
                     -- flag clear
                     -- write to fifo
+                    rx_fifo.wvalid <= '1';
+                else
+                    rx_fifo.wvalid <= '0';
                 end if;
 
-                if (r_flag = '1') then
-                    if (v_word_count = 1) then
-                        if (valid byte count) then
+                if (r_flag = '0') then
+                    r_rx_data <= (others => '0');
+                else
+                    if (rx.valid = '1') then
+                        if (v_word_count = 1) then
                             -- write byte to word
+                            r_rx_data( (8 * (v_byte_count + 1) - 1) downto (8 * v_byte_count) ) <= rx.data;
                         end if;
                     end if;
                 end if;
@@ -325,11 +345,13 @@ begin
                                 v_num_bytes := 1;
                         end case;
                         v_byte_count := v_byte_count + 1;
-                    elsif (word count = 1) then
-                        if (v_byte_count < number of bytes at word count 1) then
+
+                    elsif (v_word_count = 1) then
+                        if (v_byte_count < v_num_bytes) then -- TODO: it should be compared with second word
                             -- increase byte count
                             v_byte_count := v_byte_count + 1;
                         end if;
+
                     else -- word count = 0
                         if (v_byte_count = (v_num_bytes - 1)) then
                             -- increase word count
@@ -345,6 +367,8 @@ begin
             end if;
         end if;
     end process;
+
+    rx_fifo.wdata <= r_rx_data;
 
     -- determine number of bytes
 
@@ -365,6 +389,11 @@ begin
 
     ----------------------------------
 
+    Status <= X"00000"
+            & "000" & r_flag
+            & "00" & rx_fifo.full & rx_fifo.empty
+            & "00" & tx_fifo.full & tx_fifo.empty;
+
 end rtl;
 
 ------------------------------------------------------------------------------
@@ -378,7 +407,155 @@ end icsuart0_core_sim;
 
 architecture sim of icsuart0_core_sim is
 
+    constant CLK_CYCLE : time := 10 ns;
+
+    component icsuart0_core
+        port (
+            S00_axi_aclk    : in std_logic;
+            S00_axi_aresetn : in std_logic;
+
+            Control         : in std_logic_vector(31 downto 0);
+            Status          : out std_logic_vector(31 downto 0);
+            Status_clear    : in std_logic_vector(31 downto 0);
+
+            TxData          : in std_logic_vector(31 downto 0);
+            TxData_valid    : in std_logic;
+
+            RxData          : out std_logic_vector(31 downto 0);
+            RxData_valid    : out std_logic;
+            RxData_read     : in std_logic;
+
+            TxD             : out std_logic;
+            RxD             : in std_logic;
+            OE              : out std_logic
+        );
+    end component;
+
+    component uart_fifo
+        generic (
+            DATA_WIDTH : integer := 8;
+            DEPTH      : integer := 16
+        );
+        port (
+            Clock   : in std_logic;
+            Reset   : in std_logic;
+
+            Wdata   : in std_logic_vector((DATA_WIDTH-1) downto 0);
+            Wvalid  : in std_logic;
+
+            Rdata   : out std_logic_vector((DATA_WIDTH-1) downto 0);
+            Rvalid  : out std_logic;
+            Renable : in std_logic;
+
+            Empty   : out std_logic;
+            Full    : out std_logic
+        );
+    end component;
+
+    signal clock        : std_logic;
+    signal resetn       : std_logic;
+    signal control      : std_logic_vector(31 downto 0);
+    signal status       : std_logic_vector(31 downto 0);
+    signal status_clear : std_logic_vector(31 downto 0);
+    signal txdata       : std_logic_vector(31 downto 0);
+    signal txdata_valid : std_logic;
+    signal rxdata       : std_logic_vector(31 downto 0);
+    signal rxdata_valid : std_logic;
+    signal rxdata_read  : std_logic;
+    signal txd          : std_logic;
+    signal rxd          : std_logic;
+    signal oe           : std_logic;
+
+    constant DELAY_CYCLE : integer := 3500;
+    signal delay_line : std_logic_vector(DELAY_CYCLE downto 0);
+    signal delay_line2 : std_logic_vector(DELAY_CYCLE downto 0);
+
+
 begin
+
+    clk_gen_proc: process
+    begin
+        clock <= '1';
+        wait for CLK_CYCLE/2;
+        clock <= '0';
+        wait for CLK_CYCLE/2;
+    end process;
+
+    reset_gen_proc: process
+    begin
+        resetn <= '0';
+        wait for CLK_CYCLE*3;
+        wait for CLK_CYCLE/2;
+        resetn <= '1';
+        wait;
+    end process;
+
+    uut: icsuart0_core
+        port map (
+            S00_axi_aclk    => clock,
+            S00_axi_aresetn => resetn,
+
+            Control         => control,
+            Status          => status,
+            Status_clear    => status_clear,
+
+            TxData          => txdata,
+            TxData_valid    => txdata_valid,
+
+            RxData          => rxdata,
+            RxData_valid    => rxdata_valid,
+            RxData_read     => rxdata_read,
+
+            TxD             => txd,
+            RxD             => rxd,
+            OE              => oe
+        );
+
+    control <= (others => '0');
+    status_clear <= (others => '0');
+
+    process
+    begin
+        txdata <= (others => '0');
+        txdata_valid <= '0';
+        wait for CLK_CYCLE*10;
+        wait for CLK_CYCLE/2;
+
+        txdata <= X"0055AA81";
+        txdata_valid <= '1';
+        wait for CLK_CYCLE;
+        txdata <= (others => '0');
+        txdata_valid <= '0';
+
+
+        wait;
+    end process;
+
+    process(clock)
+    begin
+        if (rising_edge(clock)) then
+            if (rxdata_valid = '1') then
+                rxdata_read <= '1';
+            else
+                rxdata_read <= '0';
+            end if;
+        end if;
+    end process;
+
+    process(clock)
+    begin
+        if (rising_edge(clock)) then
+            if (resetn = '0') then
+                delay_line <= (others => '1');
+                delay_line2 <= (others => '1');
+            else
+                delay_line(DELAY_CYCLE downto 0) <= delay_line(DELAY_CYCLE-1 downto 0) & txd;
+                delay_line2(DELAY_CYCLE downto 0) <= delay_line2(DELAY_CYCLE-1 downto 0) & delay_line(DELAY_CYCLE);
+            end if;
+        end if;
+    end process;
+
+    rxd <= delay_line(DELAY_CYCLE) and delay_line2(DELAY_CYCLE);
 
 end sim;
 

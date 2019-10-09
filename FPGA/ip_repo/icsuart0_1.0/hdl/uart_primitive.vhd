@@ -366,7 +366,7 @@ architecture rtl of uart_fifo is
     signal r_ram_addr : TYPE_RAM_ADDR;
 
     type TYPE_OUTPUT is record
-        data  : std_logic_vector(7 downto 0);
+        data  : std_logic_vector((DATA_WIDTH-1) downto 0);
         valid : std_logic;
     end record TYPE_OUTPUT;
     signal r_output : TYPE_OUTPUT;
