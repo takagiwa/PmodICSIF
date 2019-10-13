@@ -199,7 +199,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>POLARITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.S00_AXI_RST.POLARITY" spirit:choiceRef="choice_list_74b5137e">ACTIVE_LOW</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.S00_AXI_RST.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -266,7 +266,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4c7954db</spirit:value>
+            <spirit:value>f0f0f27a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -282,7 +282,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4c7954db</spirit:value>
+            <spirit:value>f0f0f27a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -296,7 +296,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>f49029aa</spirit:value>
+            <spirit:value>4055cbe4</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -374,7 +374,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S00_AXI_ADDR_WIDTH&apos;)) - 1)">3</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S00_AXI_ADDR_WIDTH&apos;)) - 1)">4</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -537,7 +537,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S00_AXI_ADDR_WIDTH&apos;)) - 1)">3</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S00_AXI_ADDR_WIDTH&apos;)) - 1)">4</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -690,7 +690,7 @@
         <spirit:name>C_S00_AXI_ADDR_WIDTH</spirit:name>
         <spirit:displayName>C S00 AXI ADDR WIDTH</spirit:displayName>
         <spirit:description>Width of S_AXI address bus</spirit:description>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S00_AXI_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">4</spirit:value>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S00_AXI_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">5</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
         <spirit:name>CYCLES</spirit:name>
@@ -705,7 +705,7 @@
       <spirit:enumeration>32</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_list_74b5137e</spirit:name>
+      <spirit:name>choice_list_9d8b0d81</spirit:name>
       <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
       <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
     </spirit:choice>
@@ -725,7 +725,7 @@
       <spirit:file>
         <spirit:name>hdl/icsuart0_v1_0.vhd</spirit:name>
         <spirit:fileType>vhdlSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_1a0b1e85</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_cda561fe</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -807,7 +807,7 @@
       <spirit:name>C_S00_AXI_ADDR_WIDTH</spirit:name>
       <spirit:displayName>C S00 AXI ADDR WIDTH</spirit:displayName>
       <spirit:description>Width of S_AXI address bus</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S00_AXI_ADDR_WIDTH" spirit:order="4" spirit:rangeType="long">4</spirit:value>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S00_AXI_ADDR_WIDTH" spirit:order="4" spirit:minimum="0" spirit:maximum="5" spirit:rangeType="long">5</spirit:value>
       <spirit:vendorExtensions>
         <xilinx:parameterInfo>
           <xilinx:enablement>
@@ -881,11 +881,11 @@
       <xilinx:displayName>icsuart0_v1.0</xilinx:displayName>
       <xilinx:vendorDisplayName>mt</xilinx:vendorDisplayName>
       <xilinx:vendorURL>https://www.snowlantern.jp/</xilinx:vendorURL>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
+      <xilinx:coreRevision>4</xilinx:coreRevision>
       <xilinx:upgrades>
         <xilinx:canUpgradeFrom>xilinx.com:user:icsuart0:1.0</xilinx:canUpgradeFrom>
       </xilinx:upgrades>
-      <xilinx:coreCreationDateTime>2019-10-02T10:11:29Z</xilinx:coreCreationDateTime>
+      <xilinx:coreCreationDateTime>2019-10-13T10:06:16Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@16aa0b2d_ARCHIVE_LOCATION">d:/Projects/mine/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@12cd6a86_ARCHIVE_LOCATION">d:/Projects/mine/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
@@ -915,16 +915,28 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6ec5ce1b_ARCHIVE_LOCATION">d:/Projects/mine/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5653ada0_ARCHIVE_LOCATION">d:/Projects/mine/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@77187177_ARCHIVE_LOCATION">d:/Projects/mine/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@62127f04_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@766bf415_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f5837cd_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@10fbbbf4_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@53d8789d_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@462e3dd9_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5eb00f15_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1631515d_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@320689f2_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@66b072cf_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5d3fe51_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15f10482_ARCHIVE_LOCATION">c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
-      <xilinx:xilinxVersion>2018.3.1</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="7a6aebf4"/>
+      <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="7a63f3fc"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="ed1368d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="53adc593"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="70070f46"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="4460809a"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="211339cc"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="0c88ce2c"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="d2dfe3b0"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="82cd4f37"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="667501fb"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

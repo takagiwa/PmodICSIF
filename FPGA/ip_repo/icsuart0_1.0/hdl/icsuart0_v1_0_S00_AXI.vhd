@@ -372,7 +372,7 @@ begin
 	      when b"010" =>
 	        reg_data_out <= slv_reg2;
 	      when b"011" =>
-	        reg_data_out <= slv_reg3;
+	        reg_data_out <= RxData; -- slv_reg3;
 	      when others =>
 	        reg_data_out  <= (others => '0');
 	    end case;

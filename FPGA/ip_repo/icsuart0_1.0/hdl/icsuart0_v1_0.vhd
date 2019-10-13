@@ -62,10 +62,14 @@ architecture arch_imp of icsuart0_v1_0 is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 4
 		);
 		port (
-		Reg_0	: out std_logic_vector(31 downto 0);
-		Reg_1	: out std_logic_vector(31 downto 0);
-		Reg_2	: out std_logic_vector(31 downto 0);
-		Reg_3	: out std_logic_vector(31 downto 0);
+		Control	: out std_logic_vector(31 downto 0);
+		Status	: in std_logic_vector(31 downto 0);
+		Status_clear	: out std_logic_vector(31 downto 0);
+		TxData	: out std_logic_vector(31 downto 0);
+		TxData_valid	: out std_logic;
+		RxData	: in std_logic_vector(31 downto 0);
+		RxData_valid	: in std_logic;
+		RxData_read	: out std_logic;
 
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
@@ -91,10 +95,36 @@ architecture arch_imp of icsuart0_v1_0 is
 		);
 	end component icsuart0_v1_0_S00_AXI;
 
-	signal s_reg_0 : std_logic_vector(31 downto 0);
-	signal s_reg_1 : std_logic_vector(31 downto 0);
-	signal s_reg_2 : std_logic_vector(31 downto 0);
-	signal s_reg_3 : std_logic_vector(31 downto 0);
+	component icsuart0_core
+	    port (
+	        S00_axi_aclk    : in std_logic;
+	        S00_axi_aresetn : in std_logic;
+
+	        Control         : in std_logic_vector(31 downto 0);
+	        Status          : out std_logic_vector(31 downto 0);
+	        Status_clear    : in std_logic_vector(31 downto 0);
+
+	        TxData          : in std_logic_vector(31 downto 0);
+	        TxData_valid    : in std_logic;
+
+	        RxData          : out std_logic_vector(31 downto 0);
+	        RxData_valid    : out std_logic;
+	        RxData_read     : in std_logic;
+
+	        TxD             : out std_logic;
+	        RxD             : in std_logic;
+	        OE              : out std_logic
+	    );
+	end component;
+
+	signal s_control : std_logic_vector(31 downto 0);
+	signal s_status : std_logic_vector(31 downto 0);
+	signal s_status_clear : std_logic_vector(31 downto 0);
+	signal s_tx_data : std_logic_vector(31 downto 0);
+	signal s_tx_data_valid : std_logic;
+	signal s_rx_data : std_logic_vector(31 downto 0);
+	signal s_rx_data_valid : std_logic;
+	signal s_rx_data_read : std_logic;
 
 begin
 
@@ -105,10 +135,15 @@ icsuart0_v1_0_S00_AXI_inst : icsuart0_v1_0_S00_AXI
 		C_S_AXI_ADDR_WIDTH	=> C_S00_AXI_ADDR_WIDTH
 	)
 	port map (
-		Reg_0	=> s_reg_0,
-		Reg_1	=> s_reg_1,
-		Reg_2	=> s_reg_2,
-		Reg_3	=> s_reg_3,
+		Control => s_control,
+		Status => s_status,
+		Status_clear => s_status_clear,
+		TxData => s_tx_data,
+		TxData_valid => s_tx_data_valid,
+		RxData => s_rx_data,
+		RxData_valid => s_rx_data_valid,
+		RxData_read => s_rx_data_read,
+
 		S_AXI_ACLK	=> s00_axi_aclk,
 		S_AXI_ARESETN	=> s00_axi_aresetn,
 		S_AXI_AWADDR	=> s00_axi_awaddr,
@@ -134,8 +169,26 @@ icsuart0_v1_0_S00_AXI_inst : icsuart0_v1_0_S00_AXI
 
 	-- Add user logic here
 
-	TxD <= s_reg_0(0) and RxD;
-	OE <= s_reg_1(0) and RxD;
+    i_uart: icsuart0_core
+        port map (
+            S00_axi_aclk    => s00_axi_aclk,
+            S00_axi_aresetn => s00_axi_aresetn,
+
+            Control         => s_control,
+            Status          => s_status,
+            Status_clear    => s_status_clear,
+
+            TxData          => s_tx_data,
+            TxData_valid    => s_tx_data_valid,
+
+            RxData          => s_rx_data,
+            RxData_valid    => s_rx_data_valid,
+            RxData_read     => s_rx_data_read,
+
+            TxD             => TxD,
+            RxD             => RxD,
+            OE              => OE
+        );
 
 	-- User logic ends
 
