@@ -28,7 +28,10 @@ set_property parent.project_path C:/Projects/PmodICSIF/FPGA/icsuartcore0/icsuart
 set_property XPM_LIBRARIES {XPM_CDC XPM_MEMORY} [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language VHDL [current_project]
-set_property ip_repo_paths c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0 [current_project]
+set_property ip_repo_paths {
+  c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0b_1.0
+  c:/Projects/PmodICSIF/FPGA/ip_repo/icsuart0_1.0
+} [current_project]
 update_ip_catalog
 set_property ip_output_repo c:/Projects/PmodICSIF/FPGA/icsuartcore0/icsuartcore0.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
@@ -53,6 +56,9 @@ set_property used_in_implementation false [get_files -all C:/Projects/PmodICSIF/
 foreach dcp [get_files -quiet -all -filter file_type=="Design\ Checkpoint"] {
   set_property used_in_implementation false $dcp
 }
+read_xdc C:/Projects/PmodICSIF/FPGA/icsuartcore0/icsuartcore0.srcs/constrs_1/new/icsuartcore0.xdc
+set_property used_in_implementation false [get_files C:/Projects/PmodICSIF/FPGA/icsuartcore0/icsuartcore0.srcs/constrs_1/new/icsuartcore0.xdc]
+
 read_xdc dont_touch.xdc
 set_property used_in_implementation false [get_files dont_touch.xdc]
 set_param ips.enableIPCacheLiteLoad 1

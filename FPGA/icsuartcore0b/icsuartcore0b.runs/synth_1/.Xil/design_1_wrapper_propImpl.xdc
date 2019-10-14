@@ -1,0 +1,7 @@
+set_property SRC_FILE_INFO {cfile:C:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/constrs_1/new/icsuartcore0b.xdc rfile:../../../icsuartcore0b.srcs/constrs_1/new/icsuartcore0b.xdc id:1} [current_design]
+set_property src_info {type:XDC file:1 line:5 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN J15 [get_ports {RxD_0}]
+set_property src_info {type:XDC file:1 line:8 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN W16 [get_ports {TxD_0}]
+set_property src_info {type:XDC file:1 line:11 export:INPUT save:INPUT read:READ} [current_design]
+set_property PACKAGE_PIN H15 [get_ports {OE_0}]
