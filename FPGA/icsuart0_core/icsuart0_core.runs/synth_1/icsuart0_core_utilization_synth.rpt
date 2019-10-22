@@ -1,8 +1,8 @@
-Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------
-| Tool Version : Vivado v.2018.3.1 (win64) Build 2489853 Tue Mar 26 04:20:25 MDT 2019
-| Date         : Wed Oct  9 18:10:08 2019
-| Host         : takagiwa-l running 64-bit Service Pack 1  (build 7601)
+| Tool Version : Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
+| Date         : Mon Oct 21 18:54:37 2019
+| Host         : graffias7 running 64-bit major release  (build 9200)
 | Command      : report_utilization -file icsuart0_core_utilization_synth.rpt -pb icsuart0_core_utilization_synth.pb
 | Design       : icsuart0_core
 | Device       : 7z010clg400-1
@@ -30,13 +30,13 @@ Table of Contents
 +----------------------------+------+-------+-----------+-------+
 |          Site Type         | Used | Fixed | Available | Util% |
 +----------------------------+------+-------+-----------+-------+
-| Slice LUTs*                |  141 |     0 |     17600 |  0.80 |
-|   LUT as Logic             |  113 |     0 |     17600 |  0.64 |
-|   LUT as Memory            |   28 |     0 |      6000 |  0.47 |
-|     LUT as Distributed RAM |   28 |     0 |           |       |
+| Slice LUTs*                |  168 |     0 |     17600 |  0.95 |
+|   LUT as Logic             |  120 |     0 |     17600 |  0.68 |
+|   LUT as Memory            |   48 |     0 |      6000 |  0.80 |
+|     LUT as Distributed RAM |   48 |     0 |           |       |
 |     LUT as Shift Register  |    0 |     0 |           |       |
-| Slice Registers            |  183 |     0 |     35200 |  0.52 |
-|   Register as Flip Flop    |  183 |     0 |     35200 |  0.52 |
+| Slice Registers            |  248 |     0 |     35200 |  0.70 |
+|   Register as Flip Flop    |  248 |     0 |     35200 |  0.70 |
 |   Register as Latch        |    0 |     0 |     35200 |  0.00 |
 | F7 Muxes                   |    1 |     0 |      8800 |  0.01 |
 | F8 Muxes                   |    0 |     0 |      4400 |  0.00 |
@@ -58,8 +58,8 @@ Table of Contents
 | 0     |          Yes |           - |            - |
 | 0     |          Yes |           - |          Set |
 | 0     |          Yes |           - |        Reset |
-| 5     |          Yes |         Set |            - |
-| 178   |          Yes |       Reset |            - |
+| 6     |          Yes |         Set |            - |
+| 242   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -148,18 +148,18 @@ Table of Contents
 +----------+------+---------------------+
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
-| FDRE     |  178 |        Flop & Latch |
+| FDRE     |  242 |        Flop & Latch |
+| RAMD32   |   72 |  Distributed Memory |
 | OBUF     |   67 |                  IO |
-| LUT6     |   50 |                 LUT |
-| RAMD32   |   42 |  Distributed Memory |
+| LUT6     |   60 |                 LUT |
 | IBUF     |   37 |                  IO |
-| LUT5     |   25 |                 LUT |
+| RAMS32   |   24 |  Distributed Memory |
 | LUT4     |   23 |                 LUT |
-| LUT3     |   22 |                 LUT |
-| LUT2     |   15 |                 LUT |
-| RAMS32   |   14 |  Distributed Memory |
+| LUT3     |   23 |                 LUT |
+| LUT2     |   19 |                 LUT |
+| LUT5     |   18 |                 LUT |
 | LUT1     |    8 |                 LUT |
-| FDSE     |    5 |        Flop & Latch |
+| FDSE     |    6 |        Flop & Latch |
 | MUXF7    |    1 |               MuxFx |
 | BUFG     |    1 |               Clock |
 +----------+------+---------------------+

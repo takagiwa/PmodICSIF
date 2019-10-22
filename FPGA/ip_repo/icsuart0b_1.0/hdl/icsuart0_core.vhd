@@ -10,23 +10,35 @@ use ieee.numeric_std.all;
 
 entity icsuart0_core is
     port (
-        S00_axi_aclk    : in std_logic;
-        S00_axi_aresetn : in std_logic;
+        S00_axi_aclk      : in std_logic;
+        S00_axi_aresetn   : in std_logic;
 
-        Control         : in std_logic_vector(31 downto 0);
-        Status          : out std_logic_vector(31 downto 0);
-        Status_clear    : in std_logic_vector(31 downto 0);
+        Control           : in std_logic_vector(31 downto 0);
+        Status            : out std_logic_vector(31 downto 0);
+        Status_clear      : in std_logic_vector(31 downto 0);
 
-        TxData          : in std_logic_vector(31 downto 0);
-        TxData_valid    : in std_logic;
+        TxData            : in std_logic_vector(31 downto 0);
+        TxData_valid      : in std_logic;
 
-        RxData          : out std_logic_vector(31 downto 0);
-        RxData_valid    : out std_logic;
-        RxData_read     : in std_logic;
+        RxData            : out std_logic_vector(31 downto 0);
+        RxData_valid      : out std_logic;
+        RxData_read       : in std_logic;
 
-        TxD             : out std_logic;
-        RxD             : in std_logic;
-        OE              : out std_logic
+        TxD               : out std_logic;
+        RxD               : in std_logic;
+        OE                : out std_logic;
+
+        Debug_fifo_wdata  : out std_logic_vector(31 downto 0);
+        Debug_fifo_wvalid : out std_logic;
+        Debug_fifo_empty  : out std_logic;
+        Debug_rx_data     : out std_logic_vector(7 downto 0);
+        Debug_rx_perror   : out std_logic;
+        Debug_rx_valid    : out std_logic;
+
+        Debug_rx_pace    : out std_logic;
+        Debug_rx_sample  : out std_logic;
+        Debug_rx_d       : out std_logic;
+        Debug_rx_trigger : out std_logic
     );
 end icsuart0_core;
 
@@ -44,7 +56,12 @@ architecture rtl of icsuart0_core is
             Parity_error  : out std_logic;
             Valid         : out std_logic;
 
-            Rxd           : in std_logic
+            Rxd           : in std_logic;
+
+            Debug_rx_pace    : out std_logic;
+            Debug_rx_sample  : out std_logic;
+            Debug_rx_d       : out std_logic;
+            Debug_rx_trigger : out std_logic
         );
     end component;
 
@@ -132,7 +149,24 @@ architecture rtl of icsuart0_core is
     type TYPE_STAT_TX is (STAT_TX_IDLE, STAT_TX_GET_DATA, STAT_TX_TRANSMIT, STAT_TX_WAIT, STAT_TX_END);
     signal tx_stat : TYPE_STAT_TX;
 
+    signal r_flag_clear : std_logic;
 
+--COMPONENT ila_0
+--
+--PORT (
+--	clk : IN STD_LOGIC;
+--
+--
+--
+--	probe0 : IN STD_LOGIC_VECTOR(31 DOWNTO 0); 
+--	probe1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+--	probe2 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+--	probe3 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
+--	probe4 : IN STD_LOGIC_VECTOR(7 DOWNTO 0); 
+--	probe5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+--	probe6 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+--);
+--END COMPONENT  ;
 
 begin
 
@@ -262,7 +296,7 @@ begin
                 r_flag <= '0';
             else
                 -- flag
-                if (rx_fifo.wvalid = '1') then
+                if (r_flag_clear = '1') then -- rx_fifo.wvalid = '1') then
                     r_flag <= '0';
                 elsif ((tx_stat = STAT_TX_END) and (tx.ready = '1')) then
                     r_flag <= '1';
@@ -296,17 +330,17 @@ begin
     process(S00_axi_aclk)
         variable v_byte_count : integer range 0 to 4;
         variable v_num_bytes : integer range 0 to 4;
-        variable v_word_count : integer range 0 to 1;
     begin
         if (rising_edge(S00_axi_aclk)) then
             if (S00_axi_aresetn = '0') then
                 v_byte_count := 0;
                 v_num_bytes := 0;
-                v_word_count := 0;
+                r_flag_clear <= '0';
             else
+                r_flag_clear <= rx_fifo.wvalid;
                 if (rx_fifo.wvalid = '1') then
                     rx_fifo.wvalid <= '0';
-                elsif ((r_flag = '1') and (rx.valid = '1') and (v_word_count = 1) and (v_byte_count = (v_num_bytes-1))) then
+                elsif ((r_flag = '1') and (rx.valid = '1') and (v_byte_count = (v_num_bytes-1))) then
                     -- flag clear
                     -- write to fifo
                     rx_fifo.wvalid <= '1';
@@ -318,10 +352,8 @@ begin
                     r_rx_data <= (others => '0');
                 else
                     if (rx.valid = '1') then
-                        if (v_word_count = 1) then
-                            -- write byte to word
-                            r_rx_data( (8 * (v_byte_count + 1) - 1) downto (8 * v_byte_count) ) <= rx.data;
-                        end if;
+                        -- write byte to word
+                        r_rx_data( (8 * (v_byte_count + 1) - 1) downto (8 * v_byte_count) ) <= rx.data;
                     end if;
                 end if;
 
@@ -329,44 +361,37 @@ begin
                     -- byte count clear
                     v_byte_count := 0;
                     -- word count clear
-                    v_word_count := 0;
-                    v_num_bytes := 0;
+                    v_num_bytes := 4;
                 elsif (rx.valid = '1') then
-                    if ((v_byte_count = 0) and (v_word_count = 0)) then
+                    if (v_byte_count = 0) then
                         -- determine number of bytes at word count 0 and 1
-                        case rx.data(7 downto 5) is
-                            when "110" =>
+                        case rx.data(6 downto 5) is
+                            when "10" =>
                                 v_num_bytes := 3;
-                            when "101" =>
+                            when "01" =>
                                 v_num_bytes := 2;
-                            when "100" =>
+                            when "00" =>
                                 v_num_bytes := 3;
                             when others =>
-                                v_num_bytes := 1;
+                                v_num_bytes := 3;
                         end case;
-                        v_byte_count := v_byte_count + 1;
-
-                    elsif (v_word_count = 1) then
-                        if (v_byte_count < v_num_bytes) then -- TODO: it should be compared with second word
-                            -- increase byte count
-                            v_byte_count := v_byte_count + 1;
-                        end if;
-
-                    else -- word count = 0
-                        if (v_byte_count = (v_num_bytes - 1)) then
-                            -- increase word count
-                            v_word_count := v_word_count + 1;
-                            -- clear byte count
-                            v_byte_count := 0;
-                        else
-                            -- increase byte count
-                            v_byte_count := v_byte_count + 1;
-                        end if;
                     end if;
+                    v_byte_count := v_byte_count + 1;
+
                 end if;
             end if;
         end if;
     end process;
+
+
+
+
+
+
+
+
+
+
 
     rx_fifo.wdata <= r_rx_data;
 
@@ -384,7 +409,12 @@ begin
             Parity_error => rx.parity_error,
             Valid        => rx.valid,
 
-            Rxd          => RxD
+            Rxd          => RxD,
+
+            Debug_rx_pace    => Debug_rx_pace,
+            Debug_rx_sample  => Debug_rx_sample,
+            Debug_rx_d       => Debug_rx_d,
+            Debug_rx_trigger => Debug_rx_trigger
         );
 
     ----------------------------------
@@ -393,6 +423,25 @@ begin
             & "000" & r_flag
             & "00" & rx_fifo.full & rx_fifo.empty
             & "00" & tx_fifo.full & tx_fifo.empty;
+
+--    i_ila: ila_0
+--        port map (
+--            clk => S00_axi_aclk,
+--            probe0 => rx_fifo.wdata,
+--            probe1(0) => rx_fifo.wvalid,
+--            probe2(0) => rx_fifo.empty,
+--            probe3(0) => rx_fifo.full,
+--            probe4 => rx.data,
+--            probe5(0) => rx.parity_error,
+--            probe6(0) => rx.valid
+--        );
+
+    Debug_fifo_wdata  <= rx_fifo.wdata;
+    Debug_fifo_wvalid <= rx_fifo.wvalid;
+    Debug_fifo_empty  <= rx_fifo.empty;
+    Debug_rx_data     <= rx.data;
+    Debug_rx_perror   <= rx.parity_error;
+    Debug_rx_valid    <= rx.valid;
 
 end rtl;
 
@@ -427,7 +476,14 @@ architecture sim of icsuart0_core_sim is
 
             TxD             : out std_logic;
             RxD             : in std_logic;
-            OE              : out std_logic
+            OE              : out std_logic;
+
+            Debug_fifo_wdata  : out std_logic_vector(31 downto 0);
+            Debug_fifo_wvalid : out std_logic;
+            Debug_fifo_empty  : out std_logic;
+            Debug_rx_data     : out std_logic_vector(7 downto 0);
+            Debug_rx_perror   : out std_logic;
+            Debug_rx_valid    : out std_logic
         );
     end component;
 
@@ -468,8 +524,6 @@ architecture sim of icsuart0_core_sim is
 
     constant DELAY_CYCLE : integer := 3500;
     signal delay_line : std_logic_vector(DELAY_CYCLE downto 0);
-    signal delay_line2 : std_logic_vector(DELAY_CYCLE downto 0);
-
 
 begin
 
@@ -508,7 +562,14 @@ begin
 
             TxD             => txd,
             RxD             => rxd,
-            OE              => oe
+            OE              => oe,
+
+            Debug_fifo_wdata  => open,
+            Debug_fifo_wvalid => open,
+            Debug_fifo_empty  => open,
+            Debug_rx_data     => open,
+            Debug_rx_perror   => open,
+            Debug_rx_valid    => open
         );
 
     control <= (others => '0');
@@ -547,15 +608,13 @@ begin
         if (rising_edge(clock)) then
             if (resetn = '0') then
                 delay_line <= (others => '1');
-                delay_line2 <= (others => '1');
             else
                 delay_line(DELAY_CYCLE downto 0) <= delay_line(DELAY_CYCLE-1 downto 0) & txd;
-                delay_line2(DELAY_CYCLE downto 0) <= delay_line2(DELAY_CYCLE-1 downto 0) & delay_line(DELAY_CYCLE);
             end if;
         end if;
     end process;
 
-    rxd <= delay_line(DELAY_CYCLE) and delay_line2(DELAY_CYCLE);
+    rxd <= delay_line(DELAY_CYCLE);
 
 end sim;
 

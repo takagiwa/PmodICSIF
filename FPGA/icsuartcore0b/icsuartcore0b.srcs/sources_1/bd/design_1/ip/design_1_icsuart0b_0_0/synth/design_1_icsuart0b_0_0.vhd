@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: snowlantern.jp:user:icsuart0b:1.0
--- IP Revision: 2
+-- IP Revision: 5
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -58,6 +58,16 @@ ENTITY design_1_icsuart0b_0_0 IS
     TxD : OUT STD_LOGIC;
     RxD : IN STD_LOGIC;
     OE : OUT STD_LOGIC;
+    Debug_fifo_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    Debug_fifo_wvalid : OUT STD_LOGIC;
+    Debug_fifo_empty : OUT STD_LOGIC;
+    Debug_rx_data : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    Debug_rx_perror : OUT STD_LOGIC;
+    Debug_rx_valid : OUT STD_LOGIC;
+    Debug_rx_pace : OUT STD_LOGIC;
+    Debug_rx_sample : OUT STD_LOGIC;
+    Debug_rx_d : OUT STD_LOGIC;
+    Debug_rx_trigger : OUT STD_LOGIC;
     s00_axi_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
     s00_axi_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
     s00_axi_awvalid : IN STD_LOGIC;
@@ -95,6 +105,16 @@ ARCHITECTURE design_1_icsuart0b_0_0_arch OF design_1_icsuart0b_0_0 IS
       TxD : OUT STD_LOGIC;
       RxD : IN STD_LOGIC;
       OE : OUT STD_LOGIC;
+      Debug_fifo_wdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+      Debug_fifo_wvalid : OUT STD_LOGIC;
+      Debug_fifo_empty : OUT STD_LOGIC;
+      Debug_rx_data : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+      Debug_rx_perror : OUT STD_LOGIC;
+      Debug_rx_valid : OUT STD_LOGIC;
+      Debug_rx_pace : OUT STD_LOGIC;
+      Debug_rx_sample : OUT STD_LOGIC;
+      Debug_rx_d : OUT STD_LOGIC;
+      Debug_rx_trigger : OUT STD_LOGIC;
       s00_axi_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
       s00_axi_awprot : IN STD_LOGIC_VECTOR(2 DOWNTO 0);
       s00_axi_awvalid : IN STD_LOGIC;
@@ -160,6 +180,16 @@ BEGIN
       TxD => TxD,
       RxD => RxD,
       OE => OE,
+      Debug_fifo_wdata => Debug_fifo_wdata,
+      Debug_fifo_wvalid => Debug_fifo_wvalid,
+      Debug_fifo_empty => Debug_fifo_empty,
+      Debug_rx_data => Debug_rx_data,
+      Debug_rx_perror => Debug_rx_perror,
+      Debug_rx_valid => Debug_rx_valid,
+      Debug_rx_pace => Debug_rx_pace,
+      Debug_rx_sample => Debug_rx_sample,
+      Debug_rx_d => Debug_rx_d,
+      Debug_rx_trigger => Debug_rx_trigger,
       s00_axi_awaddr => s00_axi_awaddr,
       s00_axi_awprot => s00_axi_awprot,
       s00_axi_awvalid => s00_axi_awvalid,

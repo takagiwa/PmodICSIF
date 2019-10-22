@@ -1,7 +1,7 @@
 --Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
---Date        : Mon Oct 14 12:57:36 2019
+--Date        : Mon Oct 21 18:51:22 2019
 --Host        : graffias7 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1.bd
 --Design      : design_1
@@ -1244,6 +1244,16 @@ architecture STRUCTURE of design_1 is
     TxD : out STD_LOGIC;
     RxD : in STD_LOGIC;
     OE : out STD_LOGIC;
+    Debug_fifo_wdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    Debug_fifo_wvalid : out STD_LOGIC;
+    Debug_fifo_empty : out STD_LOGIC;
+    Debug_rx_data : out STD_LOGIC_VECTOR ( 7 downto 0 );
+    Debug_rx_perror : out STD_LOGIC;
+    Debug_rx_valid : out STD_LOGIC;
+    Debug_rx_pace : out STD_LOGIC;
+    Debug_rx_sample : out STD_LOGIC;
+    Debug_rx_d : out STD_LOGIC;
+    Debug_rx_trigger : out STD_LOGIC;
     s00_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
     s00_axi_awprot : in STD_LOGIC_VECTOR ( 2 downto 0 );
     s00_axi_awvalid : in STD_LOGIC;
@@ -1370,6 +1380,16 @@ architecture STRUCTURE of design_1 is
   signal ps7_0_axi_periph_M01_AXI_WSTRB : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal ps7_0_axi_periph_M01_AXI_WVALID : STD_LOGIC;
   signal rst_ps7_0_50M_peripheral_aresetn : STD_LOGIC_VECTOR ( 0 to 0 );
+  signal NLW_icsuart0b_0_Debug_fifo_empty_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_fifo_wvalid_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_rx_d_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_rx_pace_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_rx_perror_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_rx_sample_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_rx_trigger_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_rx_valid_UNCONNECTED : STD_LOGIC;
+  signal NLW_icsuart0b_0_Debug_fifo_wdata_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
+  signal NLW_icsuart0b_0_Debug_rx_data_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal NLW_rst_ps7_0_50M_mb_reset_UNCONNECTED : STD_LOGIC;
   signal NLW_rst_ps7_0_50M_bus_struct_reset_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
   signal NLW_rst_ps7_0_50M_interconnect_aresetn_UNCONNECTED : STD_LOGIC_VECTOR ( 0 to 0 );
@@ -1433,6 +1453,16 @@ axi_gpio_0: component design_1_axi_gpio_0_0
     );
 icsuart0b_0: component design_1_icsuart0b_0_0
      port map (
+      Debug_fifo_empty => NLW_icsuart0b_0_Debug_fifo_empty_UNCONNECTED,
+      Debug_fifo_wdata(31 downto 0) => NLW_icsuart0b_0_Debug_fifo_wdata_UNCONNECTED(31 downto 0),
+      Debug_fifo_wvalid => NLW_icsuart0b_0_Debug_fifo_wvalid_UNCONNECTED,
+      Debug_rx_d => NLW_icsuart0b_0_Debug_rx_d_UNCONNECTED,
+      Debug_rx_data(7 downto 0) => NLW_icsuart0b_0_Debug_rx_data_UNCONNECTED(7 downto 0),
+      Debug_rx_pace => NLW_icsuart0b_0_Debug_rx_pace_UNCONNECTED,
+      Debug_rx_perror => NLW_icsuart0b_0_Debug_rx_perror_UNCONNECTED,
+      Debug_rx_sample => NLW_icsuart0b_0_Debug_rx_sample_UNCONNECTED,
+      Debug_rx_trigger => NLW_icsuart0b_0_Debug_rx_trigger_UNCONNECTED,
+      Debug_rx_valid => NLW_icsuart0b_0_Debug_rx_valid_UNCONNECTED,
       OE => icsuart0b_0_OE,
       RxD => RxD_0_1,
       TxD => icsuart0b_0_TxD,

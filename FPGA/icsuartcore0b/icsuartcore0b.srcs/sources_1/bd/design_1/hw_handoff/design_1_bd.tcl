@@ -182,6 +182,29 @@ proc create_root_design { parentCell } {
   # Create instance: icsuart0b_0, and set properties
   set icsuart0b_0 [ create_bd_cell -type ip -vlnv snowlantern.jp:user:icsuart0b:1.0 icsuart0b_0 ]
 
+  # Create instance: ila_2, and set properties
+  set ila_2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:ila:6.2 ila_2 ]
+  set_property -dict [ list \
+   CONFIG.ALL_PROBE_SAME_MU_CNT {2} \
+   CONFIG.C_ADV_TRIGGER {true} \
+   CONFIG.C_DATA_DEPTH {8192} \
+   CONFIG.C_ENABLE_ILA_AXI_MON {false} \
+   CONFIG.C_EN_STRG_QUAL {1} \
+   CONFIG.C_MONITOR_TYPE {Native} \
+   CONFIG.C_NUM_OF_PROBES {10} \
+   CONFIG.C_PROBE0_MU_CNT {2} \
+   CONFIG.C_PROBE0_WIDTH {32} \
+   CONFIG.C_PROBE1_MU_CNT {2} \
+   CONFIG.C_PROBE2_MU_CNT {2} \
+   CONFIG.C_PROBE3_MU_CNT {2} \
+   CONFIG.C_PROBE3_WIDTH {8} \
+   CONFIG.C_PROBE4_MU_CNT {2} \
+   CONFIG.C_PROBE5_MU_CNT {2} \
+   CONFIG.C_PROBE6_MU_CNT {2} \
+   CONFIG.C_PROBE7_MU_CNT {2} \
+   CONFIG.C_PROBE8_MU_CNT {2} \
+ ] $ila_2
+
   # Create instance: processing_system7_0, and set properties
   set processing_system7_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:processing_system7:5.5 processing_system7_0 ]
   set_property -dict [ list \
@@ -924,10 +947,30 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M01_AXI [get_bd_intf_pins icsuart0b_0/S00_AXI] [get_bd_intf_pins ps7_0_axi_periph/M01_AXI]
 
   # Create port connections
+  connect_bd_net -net Debug_fifo_empty [get_bd_pins icsuart0b_0/Debug_fifo_empty] [get_bd_pins ila_2/probe2]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_fifo_empty]
+  connect_bd_net -net Debug_fifo_wdata [get_bd_pins icsuart0b_0/Debug_fifo_wdata] [get_bd_pins ila_2/probe0]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_fifo_wdata]
+  connect_bd_net -net Debug_fifo_wvalid [get_bd_pins icsuart0b_0/Debug_fifo_wvalid] [get_bd_pins ila_2/probe1]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_fifo_wvalid]
+  connect_bd_net -net Debug_rx_d [get_bd_pins icsuart0b_0/Debug_rx_d] [get_bd_pins ila_2/probe8]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_rx_d]
+  connect_bd_net -net Debug_rx_data [get_bd_pins icsuart0b_0/Debug_rx_data] [get_bd_pins ila_2/probe3]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_rx_data]
+  connect_bd_net -net Debug_rx_pace [get_bd_pins icsuart0b_0/Debug_rx_pace] [get_bd_pins ila_2/probe6]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_rx_pace]
+  connect_bd_net -net Debug_rx_perror [get_bd_pins icsuart0b_0/Debug_rx_perror] [get_bd_pins ila_2/probe4]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_rx_perror]
+  connect_bd_net -net Debug_rx_sample [get_bd_pins icsuart0b_0/Debug_rx_sample] [get_bd_pins ila_2/probe7]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_rx_sample]
+  connect_bd_net -net Debug_rx_valid [get_bd_pins icsuart0b_0/Debug_rx_valid] [get_bd_pins ila_2/probe5]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets Debug_rx_valid]
   connect_bd_net -net RxD_0_1 [get_bd_ports RxD_0] [get_bd_pins icsuart0b_0/RxD]
+  connect_bd_net -net icsuart0b_0_Debug_rx_trigger [get_bd_pins icsuart0b_0/Debug_rx_trigger] [get_bd_pins ila_2/probe9]
+set_property HDL_ATTRIBUTE.DEBUG {true} [get_bd_nets icsuart0b_0_Debug_rx_trigger]
   connect_bd_net -net icsuart0b_0_OE [get_bd_ports OE_0] [get_bd_pins icsuart0b_0/OE]
   connect_bd_net -net icsuart0b_0_TxD [get_bd_ports TxD_0] [get_bd_pins icsuart0b_0/TxD]
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins icsuart0b_0/s00_axi_aclk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_100M/slowest_sync_clk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins axi_gpio_0/s_axi_aclk] [get_bd_pins icsuart0b_0/s00_axi_aclk] [get_bd_pins ila_2/clk] [get_bd_pins processing_system7_0/FCLK_CLK0] [get_bd_pins processing_system7_0/M_AXI_GP0_ACLK] [get_bd_pins ps7_0_axi_periph/ACLK] [get_bd_pins ps7_0_axi_periph/M00_ACLK] [get_bd_pins ps7_0_axi_periph/M01_ACLK] [get_bd_pins ps7_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps7_0_100M/slowest_sync_clk]
   connect_bd_net -net processing_system7_0_FCLK_RESET0_N [get_bd_pins processing_system7_0/FCLK_RESET0_N] [get_bd_pins rst_ps7_0_100M/ext_reset_in]
   connect_bd_net -net rst_ps7_0_100M_peripheral_aresetn [get_bd_pins axi_gpio_0/s_axi_aresetn] [get_bd_pins icsuart0b_0/s00_axi_aresetn] [get_bd_pins ps7_0_axi_periph/ARESETN] [get_bd_pins ps7_0_axi_periph/M00_ARESETN] [get_bd_pins ps7_0_axi_periph/M01_ARESETN] [get_bd_pins ps7_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps7_0_100M/peripheral_aresetn]
 

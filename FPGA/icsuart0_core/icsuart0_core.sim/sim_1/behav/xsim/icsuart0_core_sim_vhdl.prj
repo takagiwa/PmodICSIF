@@ -1,7 +1,7 @@
 # compile vhdl design source files
 vhdl xil_defaultlib  \
-"../../../../../ip_repo/icsuart0_1.0/hdl/uart_primitive.vhd" \
-"../../../../../ip_repo/icsuart0_1.0/hdl/icsuart0_core.vhd" \
+"../../../../../ip_repo/icsuart0b_1.0/hdl/uart_primitive.vhd" \
+"../../../../../ip_repo/icsuart0b_1.0/hdl/icsuart0_core.vhd" \
 
 # Do not sort compile order
 nosort

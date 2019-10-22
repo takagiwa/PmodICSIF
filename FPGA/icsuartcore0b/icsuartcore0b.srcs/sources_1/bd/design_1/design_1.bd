@@ -11,7 +11,6 @@
     "design_tree": {
       "processing_system7_0": "",
       "axi_gpio_0": "",
-      "icsuart0b_0": "",
       "ps7_0_axi_periph": {
         "xbar": "",
         "s00_couplers": {
@@ -20,7 +19,9 @@
         "m00_couplers": {},
         "m01_couplers": {}
       },
-      "rst_ps7_0_100M": ""
+      "rst_ps7_0_100M": "",
+      "ila_2": "",
+      "icsuart0b_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1761,10 +1762,6 @@
           }
         }
       },
-      "icsuart0b_0": {
-        "vlnv": "snowlantern.jp:user:icsuart0b:1.0",
-        "xci_name": "design_1_icsuart0b_0_0"
-      },
       "ps7_0_axi_periph": {
         "vlnv": "xilinx.com:ip:axi_interconnect:2.1",
         "xci_name": "design_1_ps7_0_axi_periph_0",
@@ -1926,16 +1923,16 @@
               }
             },
             "interface_nets": {
-              "s00_couplers_to_auto_pc": {
-                "interface_ports": [
-                  "S_AXI",
-                  "auto_pc/S_AXI"
-                ]
-              },
               "auto_pc_to_s00_couplers": {
                 "interface_ports": [
                   "M_AXI",
                   "auto_pc/M_AXI"
+                ]
+              },
+              "s00_couplers_to_auto_pc": {
+                "interface_ports": [
+                  "S_AXI",
+                  "auto_pc/S_AXI"
                 ]
               }
             },
@@ -2082,16 +2079,16 @@
               "m00_couplers/M_AXI"
             ]
           },
-          "m01_couplers_to_ps7_0_axi_periph": {
-            "interface_ports": [
-              "M01_AXI",
-              "m01_couplers/M_AXI"
-            ]
-          },
           "xbar_to_m00_couplers": {
             "interface_ports": [
               "xbar/M00_AXI",
               "m00_couplers/S_AXI"
+            ]
+          },
+          "m01_couplers_to_ps7_0_axi_periph": {
+            "interface_ports": [
+              "M01_AXI",
+              "m01_couplers/M_AXI"
             ]
           },
           "xbar_to_m01_couplers": {
@@ -2131,19 +2128,83 @@
       "rst_ps7_0_100M": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
         "xci_name": "design_1_rst_ps7_0_100M_0"
+      },
+      "ila_2": {
+        "vlnv": "xilinx.com:ip:ila:6.2",
+        "xci_name": "design_1_ila_0_0",
+        "parameters": {
+          "ALL_PROBE_SAME_MU_CNT": {
+            "value": "2"
+          },
+          "C_ADV_TRIGGER": {
+            "value": "true"
+          },
+          "C_DATA_DEPTH": {
+            "value": "8192"
+          },
+          "C_ENABLE_ILA_AXI_MON": {
+            "value": "false"
+          },
+          "C_EN_STRG_QUAL": {
+            "value": "1"
+          },
+          "C_MONITOR_TYPE": {
+            "value": "Native"
+          },
+          "C_NUM_OF_PROBES": {
+            "value": "10"
+          },
+          "C_PROBE0_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE0_WIDTH": {
+            "value": "32"
+          },
+          "C_PROBE1_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE2_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE3_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE3_WIDTH": {
+            "value": "8"
+          },
+          "C_PROBE4_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE5_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE6_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE7_MU_CNT": {
+            "value": "2"
+          },
+          "C_PROBE8_MU_CNT": {
+            "value": "2"
+          }
+        }
+      },
+      "icsuart0b_0": {
+        "vlnv": "snowlantern.jp:user:icsuart0b:1.0",
+        "xci_name": "design_1_icsuart0b_0_0"
       }
     },
     "interface_nets": {
-      "axi_gpio_0_GPIO": {
+      "processing_system7_0_DDR": {
         "interface_ports": [
-          "btns_4bits",
-          "axi_gpio_0/GPIO"
+          "DDR",
+          "processing_system7_0/DDR"
         ]
       },
-      "processing_system7_0_M_AXI_GP0": {
+      "ps7_0_axi_periph_M01_AXI": {
         "interface_ports": [
-          "processing_system7_0/M_AXI_GP0",
-          "ps7_0_axi_periph/S00_AXI"
+          "ps7_0_axi_periph/M01_AXI",
+          "icsuart0b_0/S00_AXI"
         ]
       },
       "ps7_0_axi_periph_M00_AXI": {
@@ -2152,16 +2213,16 @@
           "axi_gpio_0/S_AXI"
         ]
       },
-      "axi_gpio_0_GPIO2": {
+      "processing_system7_0_M_AXI_GP0": {
         "interface_ports": [
-          "leds_4bits",
-          "axi_gpio_0/GPIO2"
+          "processing_system7_0/M_AXI_GP0",
+          "ps7_0_axi_periph/S00_AXI"
         ]
       },
-      "processing_system7_0_DDR": {
+      "axi_gpio_0_GPIO": {
         "interface_ports": [
-          "DDR",
-          "processing_system7_0/DDR"
+          "btns_4bits",
+          "axi_gpio_0/GPIO"
         ]
       },
       "processing_system7_0_FIXED_IO": {
@@ -2170,10 +2231,10 @@
           "processing_system7_0/FIXED_IO"
         ]
       },
-      "ps7_0_axi_periph_M01_AXI": {
+      "axi_gpio_0_GPIO2": {
         "interface_ports": [
-          "ps7_0_axi_periph/M01_AXI",
-          "icsuart0b_0/S00_AXI"
+          "leds_4bits",
+          "axi_gpio_0/GPIO2"
         ]
       }
     },
@@ -2187,8 +2248,9 @@
           "axi_gpio_0/s_axi_aclk",
           "ps7_0_axi_periph/M00_ACLK",
           "ps7_0_axi_periph/ACLK",
-          "icsuart0b_0/s00_axi_aclk",
-          "ps7_0_axi_periph/M01_ACLK"
+          "ps7_0_axi_periph/M01_ACLK",
+          "ila_2/clk",
+          "icsuart0b_0/s00_axi_aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -2204,8 +2266,8 @@
           "axi_gpio_0/s_axi_aresetn",
           "ps7_0_axi_periph/M00_ARESETN",
           "ps7_0_axi_periph/ARESETN",
-          "icsuart0b_0/s00_axi_aresetn",
-          "ps7_0_axi_periph/M01_ARESETN"
+          "ps7_0_axi_periph/M01_ARESETN",
+          "icsuart0b_0/s00_axi_aresetn"
         ]
       },
       "icsuart0b_0_TxD": {
@@ -2225,6 +2287,146 @@
           "RxD_0",
           "icsuart0b_0/RxD"
         ]
+      },
+      "Debug_rx_pace": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_pace",
+          "ila_2/probe6"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_fifo_wdata": {
+        "ports": [
+          "icsuart0b_0/Debug_fifo_wdata",
+          "ila_2/probe0"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_fifo_wvalid": {
+        "ports": [
+          "icsuart0b_0/Debug_fifo_wvalid",
+          "ila_2/probe1"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_fifo_empty": {
+        "ports": [
+          "icsuart0b_0/Debug_fifo_empty",
+          "ila_2/probe2"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_rx_data": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_data",
+          "ila_2/probe3"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_rx_perror": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_perror",
+          "ila_2/probe4"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_rx_valid": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_valid",
+          "ila_2/probe5"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_rx_sample": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_sample",
+          "ila_2/probe7"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "Debug_rx_d": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_d",
+          "ila_2/probe8"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
+      },
+      "icsuart0b_0_Debug_rx_trigger": {
+        "ports": [
+          "icsuart0b_0/Debug_rx_trigger",
+          "ila_2/probe9"
+        ],
+        "hdl_attributes": {
+          "DEBUG": {
+            "value": "true"
+          },
+          "MARK_DEBUG": {
+            "value": "true"
+          }
+        }
       }
     },
     "addressing": {

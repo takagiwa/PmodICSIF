@@ -59,6 +59,7 @@ int main()
 	int status;
 	u32 swread;
 	u32 uartread;
+	u32 wdata;
 
     init_platform();
 
@@ -88,23 +89,66 @@ int main()
     }
     */
 
+    int switch_count = 0;
     while(1)
     {
     	swread = XGpio_DiscreteRead(&Gpio, 1);
     	if (0) printf("  switch: 0x%08lx\n", swread);
     	XGpio_DiscreteWrite(&Gpio, 2, swread);
 
-    	uartread = ICSUART0B_mReadReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 4);
-    	printf("  Status: 0x%08lx\n", uartread);
-
-    	if (swread & 0x1) {
-    		pos += 10;
-    	    ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, (0x81 << 0) |  (((pos & (0x1F << 5)) >> 5) << 8) |  (((pos & (0x1F << 0)) >> 0) << 16) );
+    	uartread = ICSUART0B_mReadReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 1 << 2);
+    	if (0) printf("  Status: 0x%08lx\n", uartread);
+    	if ((uartread & 0x10) == 0) {
+    		/* not empty */
+        	uartread = ICSUART0B_mReadReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 3 << 2);
+        	printf("  Read: 0x%08lx\n", uartread);
     	}
 
-    	if (swread & 0x8) {
-    		pos -= 10;
-    	    ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, (0x81 << 0) |  (((pos & (0x1F << 5)) >> 5) << 8) |  (((pos & (0x1F << 0)) >> 0) << 16) );
+    	if ((swread & 0xF) == 0) {
+    		switch_count = 0;
+    	} else if (switch_count < 16) {
+    		switch_count++;
+    	}
+
+    	if (switch_count == 14) {
+    		if (swread & 0x1) {
+    			pos += 50;
+    			if (pos >= 11500) pos = 11500;
+    			if (0) printf("  pos: 0x%08x & 0x%08x\n", ((pos & (0x7F << 0)) >> 0), ((pos & (0x7F << 5)) >> 5));
+    			wdata = (0x80 << 0) |  (((pos & (0x7F << 7)) >> 7) << 8) |  (((pos & (0x7F << 0)) >> 0) << 16);
+    			printf(" write: 0x%08lx\n", wdata);
+    			ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, wdata);
+    		}
+
+    		if (swread & 0x2) {
+    			/* 5500 */
+    			pos = 5500;
+    			if (0) printf("  pos: 0x%08x & 0x%08x\n", ((pos & (0x7F << 0)) >> 0), ((pos & (0x7F << 5)) >> 5));
+    			if (0) ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, (0x80 << 0) |  (0x2A << 8) |  (0x7C << 16) );
+    			wdata = (0x80 << 0) |  (((pos & (0x7F << 7)) >> 7) << 8) |  (((pos & (0x7F << 0)) >> 0) << 16);
+    			printf(" write: 0x%08lx\n", wdata);
+    			ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, wdata);
+    		}
+
+    		if (swread & 0x4) {
+    			/* 9500 */
+    			pos = 9500;
+    			if (0) printf("  pos: 0x%08x & 0x%08x\n", ((pos & (0x7F << 0)) >> 0), ((pos & (0x7F << 5)) >> 5));
+    			if (0) ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, (0x80 << 0) |  (0x4A << 8) |  (0x1C << 16) );
+    			wdata = (0x80 << 0) |  (((pos & (0x7F << 7)) >> 7) << 8) |  (((pos & (0x7F << 0)) >> 0) << 16);
+    			printf(" write: 0x%08lx\n", wdata);
+    			ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, wdata);
+    		}
+
+    		if (swread & 0x8) {
+    			pos -= 50;
+    			if (pos <= 3500) pos = 3500;
+    			if (0) printf("  pos: 0x%08x & 0x%08x\n", ((pos & (0x7F << 0)) >> 0), ((pos & (0x7F << 5)) >> 5));
+    			if (0) ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, (0x80 << 0) |  (((pos & (0x7F << 7)) >> 7) << 8) |  (((pos & (0x7F << 0)) >> 0) << 16) );
+    			wdata = (0x80 << 0) |  (((pos & (0x7F << 7)) >> 7) << 8) |  (((pos & (0x7F << 0)) >> 0) << 16);
+    			printf(" write: 0x%08lx\n", wdata);
+    			ICSUART0B_mWriteReg(XPAR_ICSUART0B_0_S00_AXI_BASEADDR, 8, wdata);
+    		}
     	}
 
 

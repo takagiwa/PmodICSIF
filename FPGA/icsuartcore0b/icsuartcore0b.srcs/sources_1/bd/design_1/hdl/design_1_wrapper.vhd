@@ -1,7 +1,7 @@
 --Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------
 --Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
---Date        : Mon Oct 14 14:30:28 2019
+--Date        : Mon Oct 21 19:13:13 2019
 --Host        : graffias7 running 64-bit major release  (build 9200)
 --Command     : generate_target design_1_wrapper.bd
 --Design      : design_1_wrapper
@@ -45,6 +45,9 @@ end design_1_wrapper;
 architecture STRUCTURE of design_1_wrapper is
   component design_1 is
   port (
+    TxD_0 : out STD_LOGIC;
+    OE_0 : out STD_LOGIC;
+    RxD_0 : in STD_LOGIC;
     DDR_cas_n : inout STD_LOGIC;
     DDR_cke : inout STD_LOGIC;
     DDR_ck_n : inout STD_LOGIC;
@@ -60,17 +63,14 @@ architecture STRUCTURE of design_1_wrapper is
     DDR_dq : inout STD_LOGIC_VECTOR ( 31 downto 0 );
     DDR_dqs_n : inout STD_LOGIC_VECTOR ( 3 downto 0 );
     DDR_dqs_p : inout STD_LOGIC_VECTOR ( 3 downto 0 );
+    leds_4bits_tri_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    btns_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
     FIXED_IO_mio : inout STD_LOGIC_VECTOR ( 53 downto 0 );
     FIXED_IO_ddr_vrn : inout STD_LOGIC;
     FIXED_IO_ddr_vrp : inout STD_LOGIC;
     FIXED_IO_ps_srstb : inout STD_LOGIC;
     FIXED_IO_ps_clk : inout STD_LOGIC;
-    FIXED_IO_ps_porb : inout STD_LOGIC;
-    btns_4bits_tri_i : in STD_LOGIC_VECTOR ( 3 downto 0 );
-    leds_4bits_tri_o : out STD_LOGIC_VECTOR ( 3 downto 0 );
-    TxD_0 : out STD_LOGIC;
-    OE_0 : out STD_LOGIC;
-    RxD_0 : in STD_LOGIC
+    FIXED_IO_ps_porb : inout STD_LOGIC
   );
   end component design_1;
 begin

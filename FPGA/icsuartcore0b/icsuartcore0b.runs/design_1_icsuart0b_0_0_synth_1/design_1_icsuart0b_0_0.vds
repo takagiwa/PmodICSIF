@@ -2,8 +2,8 @@
 # Vivado v2018.3 (64-bit)
 # SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
 # IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
-# Start of session at: Mon Oct 14 14:21:34 2019
-# Process ID: 9444
+# Start of session at: Mon Oct 21 18:42:16 2019
+# Process ID: 6824
 # Current directory: C:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.runs/design_1_icsuart0b_0_0_synth_1
 # Command line: vivado.exe -log design_1_icsuart0b_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_icsuart0b_0_0.tcl
 # Log file: C:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.runs/design_1_icsuart0b_0_0_synth_1/design_1_icsuart0b_0_0.vds
@@ -18,60 +18,61 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 1256 
+INFO: Helper process launched with PID 4704 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 394.023 ; gain = 98.586
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 394.180 ; gain = 98.926
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'design_1_icsuart0b_0_0' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ip/design_1_icsuart0b_0_0/synth/design_1_icsuart0b_0_0.vhd:85]
+INFO: [Synth 8-638] synthesizing module 'design_1_icsuart0b_0_0' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ip/design_1_icsuart0b_0_0/synth/design_1_icsuart0b_0_0.vhd:95]
 	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S00_AXI_ADDR_WIDTH bound to: 5 - type: integer 
 	Parameter CYCLES bound to: 5 - type: integer 
-INFO: [Synth 8-3491] module 'icsuart0b_v1_0' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0.vhd:5' bound to instance 'U0' of component 'icsuart0b_v1_0' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ip/design_1_icsuart0b_0_0/synth/design_1_icsuart0b_0_0.vhd:153]
-INFO: [Synth 8-638] synthesizing module 'icsuart0b_v1_0' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0.vhd:55]
+INFO: [Synth 8-3491] module 'icsuart0b_v1_0' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0.vhd:5' bound to instance 'U0' of component 'icsuart0b_v1_0' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ip/design_1_icsuart0b_0_0/synth/design_1_icsuart0b_0_0.vhd:173]
+INFO: [Synth 8-638] synthesizing module 'icsuart0b_v1_0' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0.vhd:66]
 	Parameter CYCLES bound to: 5 - type: integer 
 	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S00_AXI_ADDR_WIDTH bound to: 5 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
-INFO: [Synth 8-3491] module 'icsuart0b_v1_0_S00_AXI' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:5' bound to instance 'icsuart0b_v1_0_S00_AXI_inst' of component 'icsuart0b_v1_0_S00_AXI' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0.vhd:131]
-INFO: [Synth 8-638] synthesizing module 'icsuart0b_v1_0_S00_AXI' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:95]
+INFO: [Synth 8-3491] module 'icsuart0b_v1_0_S00_AXI' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:5' bound to instance 'icsuart0b_v1_0_S00_AXI_inst' of component 'icsuart0b_v1_0_S00_AXI' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0.vhd:153]
+INFO: [Synth 8-638] synthesizing module 'icsuart0b_v1_0_S00_AXI' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:95]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
-INFO: [Synth 8-226] default block is never used [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:245]
-INFO: [Synth 8-226] default block is never used [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:411]
-WARNING: [Synth 8-614] signal 'Status' is read in the process but is not in the sensitivity list [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:406]
-WARNING: [Synth 8-614] signal 'RxData' is read in the process but is not in the sensitivity list [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:406]
-WARNING: [Synth 8-6014] Unused sequential element slv_reg3_reg was removed.  [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:237]
-WARNING: [Synth 8-6014] Unused sequential element loc_addr_reg was removed.  [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:243]
-WARNING: [Synth 8-6014] Unused sequential element slv_reg3_reg was removed.  [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:463]
-INFO: [Synth 8-256] done synthesizing module 'icsuart0b_v1_0_S00_AXI' (1#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0_S00_AXI.vhd:95]
-INFO: [Synth 8-3491] module 'icsuart0_core' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:11' bound to instance 'i_uart' of component 'icsuart0_core' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0.vhd:171]
-INFO: [Synth 8-638] synthesizing module 'icsuart0_core' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:33]
+INFO: [Synth 8-226] default block is never used [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:245]
+INFO: [Synth 8-226] default block is never used [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:411]
+WARNING: [Synth 8-614] signal 'Status' is read in the process but is not in the sensitivity list [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:406]
+WARNING: [Synth 8-614] signal 'RxData' is read in the process but is not in the sensitivity list [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:406]
+WARNING: [Synth 8-6014] Unused sequential element slv_reg3_reg was removed.  [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:237]
+WARNING: [Synth 8-6014] Unused sequential element loc_addr_reg was removed.  [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:243]
+WARNING: [Synth 8-6014] Unused sequential element slv_reg3_reg was removed.  [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:463]
+INFO: [Synth 8-256] done synthesizing module 'icsuart0b_v1_0_S00_AXI' (1#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0_S00_AXI.vhd:95]
+INFO: [Synth 8-3491] module 'icsuart0_core' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:11' bound to instance 'i_uart' of component 'icsuart0_core' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0.vhd:193]
+INFO: [Synth 8-638] synthesizing module 'icsuart0_core' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:45]
 	Parameter DATA_WIDTH bound to: 32 - type: integer 
 	Parameter DEPTH bound to: 16 - type: integer 
-INFO: [Synth 8-3491] module 'uart_fifo' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:336' bound to instance 'i_tx_fifo' of component 'uart_fifo' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:143]
-INFO: [Synth 8-638] synthesizing module 'uart_fifo' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:357]
+INFO: [Synth 8-3491] module 'uart_fifo' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:358' bound to instance 'i_tx_fifo' of component 'uart_fifo' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:176]
+INFO: [Synth 8-638] synthesizing module 'uart_fifo' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:379]
 	Parameter DATA_WIDTH bound to: 32 - type: integer 
 	Parameter DEPTH bound to: 16 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'uart_fifo' (2#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:357]
+INFO: [Synth 8-256] done synthesizing module 'uart_fifo' (2#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:379]
 	Parameter CYCLES bound to: 5 - type: integer 
 	Parameter OE_LOW_ACTIVE bound to: 0 - type: bool 
-INFO: [Synth 8-3491] module 'uart_tx' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:11' bound to instance 'i_tx' of component 'uart_tx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:238]
-INFO: [Synth 8-638] synthesizing module 'uart_tx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:30]
+INFO: [Synth 8-3491] module 'uart_tx' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:11' bound to instance 'i_tx' of component 'uart_tx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:271]
+INFO: [Synth 8-638] synthesizing module 'uart_tx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:30]
 	Parameter CYCLES bound to: 5 - type: integer 
 	Parameter OE_LOW_ACTIVE bound to: 0 - type: bool 
-INFO: [Synth 8-256] done synthesizing module 'uart_tx' (3#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:30]
+INFO: [Synth 8-226] default block is never used [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:73]
+INFO: [Synth 8-256] done synthesizing module 'uart_tx' (3#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:30]
 	Parameter DATA_WIDTH bound to: 32 - type: integer 
 	Parameter DEPTH bound to: 16 - type: integer 
-INFO: [Synth 8-3491] module 'uart_fifo' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:336' bound to instance 'i_rx_fifo' of component 'uart_fifo' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:276]
+INFO: [Synth 8-3491] module 'uart_fifo' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:358' bound to instance 'i_rx_fifo' of component 'uart_fifo' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:309]
 	Parameter CYCLES bound to: 5 - type: integer 
-INFO: [Synth 8-3491] module 'uart_rx' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:155' bound to instance 'i_rx' of component 'uart_rx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:375]
-INFO: [Synth 8-638] synthesizing module 'uart_rx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:171]
+INFO: [Synth 8-3491] module 'uart_rx' declared at 'c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:165' bound to instance 'i_rx' of component 'uart_rx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:394]
+INFO: [Synth 8-638] synthesizing module 'uart_rx' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:186]
 	Parameter CYCLES bound to: 5 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'uart_rx' (4#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:171]
-INFO: [Synth 8-256] done synthesizing module 'icsuart0_core' (5#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:33]
-INFO: [Synth 8-256] done synthesizing module 'icsuart0b_v1_0' (6#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0b_v1_0.vhd:55]
-INFO: [Synth 8-256] done synthesizing module 'design_1_icsuart0b_0_0' (7#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ip/design_1_icsuart0b_0_0/synth/design_1_icsuart0b_0_0.vhd:85]
+INFO: [Synth 8-256] done synthesizing module 'uart_rx' (4#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:186]
+INFO: [Synth 8-256] done synthesizing module 'icsuart0_core' (5#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:45]
+INFO: [Synth 8-256] done synthesizing module 'icsuart0b_v1_0' (6#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0b_v1_0.vhd:66]
+INFO: [Synth 8-256] done synthesizing module 'design_1_icsuart0b_0_0' (7#1) [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ip/design_1_icsuart0b_0_0/synth/design_1_icsuart0b_0_0.vhd:95]
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[31]
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[30]
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[29]
@@ -144,7 +145,7 @@ WARNING: [Synth 8-3331] design icsuart0b_v1_0_S00_AXI has unconnected port S_AXI
 WARNING: [Synth 8-3331] design icsuart0b_v1_0_S00_AXI has unconnected port S_AXI_ARPROT[1]
 WARNING: [Synth 8-3331] design icsuart0b_v1_0_S00_AXI has unconnected port S_AXI_ARPROT[0]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 451.777 ; gain = 156.340
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 452.023 ; gain = 156.770
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -157,10 +158,10 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 451.777 ; gain = 156.340
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 452.023 ; gain = 156.770
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 451.777 ; gain = 156.340
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 452.023 ; gain = 156.770
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7z010clg400-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -169,37 +170,40 @@ Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 775.375 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 775.004 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 775.375 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 775.004 ; gain = 0.000
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.153 . Memory (MB): peak = 779.000 ; gain = 3.625
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.090 . Memory (MB): peak = 778.430 ; gain = 3.426
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 779.000 ; gain = 483.563
+Finished Constraint Validation : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 778.430 ; gain = 483.176
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 779.000 ; gain = 483.563
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 778.430 ; gain = 483.176
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:20 ; elapsed = 00:00:22 . Memory (MB): peak = 779.000 ; gain = 483.563
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 778.430 ; gain = 483.176
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/uart_primitive.vhd:430]
+INFO: [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is shared. To prevent sharing consider applying a KEEP on the output of the operator [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/uart_primitive.vhd:452]
 INFO: [Synth 8-5546] ROM "r_status[empty]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "r_status[full]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-802] inferred FSM for state register 'stat_reg' in module 'uart_tx'
 INFO: [Synth 8-5546] ROM "r_pace" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5544] ROM "stat" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stat" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "v_bit_count" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "r_txd" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "stat" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
 INFO: [Synth 8-802] inferred FSM for state register 'stat_reg' in module 'uart_rx'
 INFO: [Synth 8-5544] ROM "r_pace" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "r_sample" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
@@ -210,17 +214,19 @@ INFO: [Synth 8-5544] ROM "v_valid" won't be mapped to Block RAM because address 
 INFO: [Synth 8-5544] ROM "r_output[parity_error]" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "stat" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "v_num_bytes" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "v_num_bytes" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-802] inferred FSM for state register 'tx_stat_reg' in module 'icsuart0_core'
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
                stat_idle |                              000 |                              000
-          stat_start_bit |                              001 |                              001
-           stat_transmit |                              010 |                              010
-         stat_parity_bit |                              011 |                              011
-           stat_stop_bit |                              100 |                              100
-               stat_wait |                              101 |                              101
-               stat_term |                              110 |                              110
+         stat_first_pace |                              001 |                              001
+          stat_start_bit |                              010 |                              010
+           stat_transmit |                              011 |                              011
+         stat_parity_bit |                              100 |                              100
+           stat_stop_bit |                              101 |                              101
+               stat_wait |                              110 |                              110
+               stat_term |                              111 |                              111
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'stat_reg' using encoding 'sequential' in module 'uart_tx'
 ---------------------------------------------------------------------------------------------------
@@ -244,7 +250,7 @@ INFO: [Synth 8-3354] encoded FSM with state register 'stat_reg' using encoding '
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'tx_stat_reg' using encoding 'one-hot' in module 'icsuart0_core'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:21 ; elapsed = 00:00:23 . Memory (MB): peak = 779.000 ; gain = 483.563
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 778.430 ; gain = 483.176
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -272,27 +278,27 @@ Detailed RTL Component Info :
 	                4 Bit    Registers := 3     
 	                3 Bit    Registers := 6     
 	                2 Bit    Registers := 4     
-	                1 Bit    Registers := 32    
+	                1 Bit    Registers := 31    
 +---RAMs : 
 	              512 Bit         RAMs := 2     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 10    
+	   2 Input     32 Bit        Muxes := 9     
 	   8 Input     32 Bit        Muxes := 7     
 	   2 Input      8 Bit        Muxes := 2     
 	   5 Input      8 Bit        Muxes := 1     
 	   4 Input      8 Bit        Muxes := 1     
 	   2 Input      4 Bit        Muxes := 7     
 	   4 Input      4 Bit        Muxes := 1     
-	   7 Input      3 Bit        Muxes := 2     
-	   2 Input      3 Bit        Muxes := 2     
+	   8 Input      3 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 5     
 	   5 Input      3 Bit        Muxes := 3     
-	   2 Input      2 Bit        Muxes := 4     
+	   2 Input      2 Bit        Muxes := 5     
 	   4 Input      2 Bit        Muxes := 2     
 	   5 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 24    
+	   2 Input      1 Bit        Muxes := 22    
 	   3 Input      1 Bit        Muxes := 3     
 	   4 Input      1 Bit        Muxes := 2     
-	   7 Input      1 Bit        Muxes := 11    
+	   8 Input      1 Bit        Muxes := 11    
 	   5 Input      1 Bit        Muxes := 14    
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
@@ -343,10 +349,10 @@ Detailed RTL Component Info :
 	                3 Bit    Registers := 1     
 	                1 Bit    Registers := 5     
 +---Muxes : 
-	   7 Input      3 Bit        Muxes := 2     
-	   2 Input      3 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 2     
-	   7 Input      1 Bit        Muxes := 11    
+	   8 Input      3 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 4     
+	   8 Input      1 Bit        Muxes := 11    
 Module uart_rx 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -380,16 +386,17 @@ Detailed RTL Component Info :
 	                8 Bit    Registers := 1     
 	                3 Bit    Registers := 2     
 	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 5     
+	                1 Bit    Registers := 4     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 3     
+	   2 Input     32 Bit        Muxes := 2     
 	   4 Input      8 Bit        Muxes := 1     
 	   5 Input      3 Bit        Muxes := 1     
-	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 2     
+	   2 Input      2 Bit        Muxes := 3     
 	   4 Input      2 Bit        Muxes := 2     
 	   5 Input      2 Bit        Muxes := 1     
 	   5 Input      1 Bit        Muxes := 7     
-	   2 Input      1 Bit        Muxes := 7     
+	   2 Input      1 Bit        Muxes := 3     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -406,11 +413,13 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 Warning: Parallel synthesis criteria is not met 
-INFO: [Synth 8-4471] merging register 'v_byte_count_reg[2:0]' into 'v_byte_count_reg[2:0]' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/f547/hdl/icsuart0_core.vhd:303]
+INFO: [Synth 8-4471] merging register 'v_byte_count_reg[2:0]' into 'v_byte_count_reg[2:0]' [c:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.srcs/sources_1/bd/design_1/ipshared/363f/hdl/icsuart0_core.vhd:335]
+INFO: [Synth 8-5544] ROM "i_tx/stat" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "i_tx/stat" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "i_rx/r_pace" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "i_rx/r_sample" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "i_rx/stat" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "v_num_bytes" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5546] ROM "i_tx/r_pace" won't be mapped to RAM because it is too sparse
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[31]
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[30]
@@ -442,13 +451,12 @@ WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[5]
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[4]
 WARNING: [Synth 8-3331] design icsuart0_core has unconnected port Control[3]
 INFO: [Common 17-14] Message 'Synth 8-3331' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U0/i_uart/v_num_bytes_reg[2] )
 INFO: [Synth 8-3886] merging instance 'U0/icsuart0b_v1_0_S00_AXI_inst/axi_rresp_reg[0]' (FDRE) to 'U0/icsuart0b_v1_0_S00_AXI_inst/axi_rresp_reg[1]'
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U0/icsuart0b_v1_0_S00_AXI_inst/axi_rresp_reg[1] )
 INFO: [Synth 8-3886] merging instance 'U0/icsuart0b_v1_0_S00_AXI_inst/axi_bresp_reg[0]' (FDRE) to 'U0/icsuart0b_v1_0_S00_AXI_inst/axi_bresp_reg[1]'
 INFO: [Synth 8-3333] propagating constant 0 across sequential element (\U0/icsuart0b_v1_0_S00_AXI_inst/axi_bresp_reg[1] )
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 779.000 ; gain = 483.563
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 778.430 ; gain = 483.176
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -476,13 +484,13 @@ Report RTL Partitions:
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:42 ; elapsed = 00:00:46 . Memory (MB): peak = 780.969 ; gain = 485.531
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:33 ; elapsed = 00:00:34 . Memory (MB): peak = 781.574 ; gain = 486.320
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:43 ; elapsed = 00:00:46 . Memory (MB): peak = 781.711 ; gain = 486.273
+Finished Timing Optimization : Time (s): cpu = 00:00:33 ; elapsed = 00:00:35 . Memory (MB): peak = 782.246 ; gain = 486.992
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -511,7 +519,7 @@ Start Technology Mapping
 INFO: [Synth 8-3886] merging instance 'U0/i_uart/i_tx_fifo/r_ram_addr_reg[r]_rep[0]' (FDRE) to 'U0/i_uart/i_tx_fifo/r_ram_addr_reg[r][0]'
 INFO: [Synth 8-3886] merging instance 'U0/i_uart/i_rx_fifo/r_ram_addr_reg[r]_rep[0]' (FDRE) to 'U0/i_uart/i_rx_fifo/r_ram_addr_reg[r][0]'
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:43 ; elapsed = 00:00:47 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Technology Mapping : Time (s): cpu = 00:00:33 ; elapsed = 00:00:35 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -535,7 +543,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished IO Insertion : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -548,7 +556,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -560,25 +568,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -595,14 +603,14 @@ Report Cell Usage:
 |      |Cell   |Count |
 +------+-------+------+
 |1     |LUT1   |     8|
-|2     |LUT2   |    19|
-|3     |LUT3   |    23|
-|4     |LUT4   |    30|
-|5     |LUT5   |    69|
-|6     |LUT6   |   104|
+|2     |LUT2   |    21|
+|3     |LUT3   |    22|
+|4     |LUT4   |    34|
+|5     |LUT5   |    73|
+|6     |LUT6   |   102|
 |7     |MUXF7  |    33|
 |8     |RAM32M |    12|
-|9     |FDRE   |   475|
+|9     |FDRE   |   477|
 |10    |FDSE   |    10|
 +------+-------+------+
 
@@ -610,44 +618,44 @@ Report Instance Areas:
 +------+--------------------------------+-----------------------+------+
 |      |Instance                        |Module                 |Cells |
 +------+--------------------------------+-----------------------+------+
-|1     |top                             |                       |   783|
-|2     |  U0                            |icsuart0b_v1_0         |   783|
-|3     |    i_uart                      |icsuart0_core          |   408|
-|4     |      i_rx                      |uart_rx                |    79|
+|1     |top                             |                       |   792|
+|2     |  U0                            |icsuart0b_v1_0         |   792|
+|3     |    i_uart                      |icsuart0_core          |   417|
+|4     |      i_rx                      |uart_rx                |    84|
 |5     |      i_rx_fifo                 |uart_fifo              |    80|
-|6     |      i_tx                      |uart_tx                |    59|
+|6     |      i_tx                      |uart_tx                |    64|
 |7     |      i_tx_fifo                 |uart_fifo_0            |    85|
 |8     |    icsuart0b_v1_0_S00_AXI_inst |icsuart0b_v1_0_S00_AXI |   375|
 +------+--------------------------------+-----------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:45 ; elapsed = 00:00:48 . Memory (MB): peak = 804.742 ; gain = 509.305
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:35 ; elapsed = 00:00:36 . Memory (MB): peak = 805.684 ; gain = 510.430
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 71 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:29 ; elapsed = 00:00:39 . Memory (MB): peak = 804.742 ; gain = 182.082
-Synthesis Optimization Complete : Time (s): cpu = 00:00:45 ; elapsed = 00:00:49 . Memory (MB): peak = 804.742 ; gain = 509.305
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:28 . Memory (MB): peak = 805.684 ; gain = 184.023
+Synthesis Optimization Complete : Time (s): cpu = 00:00:35 ; elapsed = 00:00:37 . Memory (MB): peak = 805.684 ; gain = 510.430
 INFO: [Project 1-571] Translating synthesized netlist
 INFO: [Netlist 29-17] Analyzing 45 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 804.742 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 805.684 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
   A total of 12 instances were transformed.
   RAM32M => RAM32M (RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMD32, RAMS32, RAMS32): 12 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-72 Infos, 106 Warnings, 0 Critical Warnings and 0 Errors encountered.
+78 Infos, 106 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:48 ; elapsed = 00:00:52 . Memory (MB): peak = 804.742 ; gain = 517.500
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 804.742 ; gain = 0.000
+synth_design: Time (s): cpu = 00:00:37 ; elapsed = 00:00:40 . Memory (MB): peak = 805.684 ; gain = 518.836
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 805.684 ; gain = 0.000
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
 INFO: [Common 17-1381] The checkpoint 'C:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.runs/design_1_icsuart0b_0_0_synth_1/design_1_icsuart0b_0_0.dcp' has been generated.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_icsuart0b_0_0, cache-ID = 766ec383abda173d
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_icsuart0b_0_0, cache-ID = 5f51e18b9c65f720
 INFO: [Coretcl 2-1174] Renamed 7 cell refs.
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 804.742 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 805.684 ; gain = 0.000
 WARNING: [Constraints 18-5210] No constraints selected for write.
 Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
 INFO: [Common 17-1381] The checkpoint 'C:/Projects/PmodICSIF/FPGA/icsuartcore0b/icsuartcore0b.runs/design_1_icsuart0b_0_0_synth_1/design_1_icsuart0b_0_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file design_1_icsuart0b_0_0_utilization_synth.rpt -pb design_1_icsuart0b_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon Oct 14 14:22:41 2019...
+INFO: [Common 17-206] Exiting Vivado at Mon Oct 21 18:43:07 2019...
