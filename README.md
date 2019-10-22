@@ -26,8 +26,8 @@ ICS3.6と3.5の違いと新機能についての紹介 https://kondo-robot.com/f
 
 # Bill of materials
 
-| Ref | Parts|
-----+----
+| Ref | Parts |
+----|----
 | J1 | Pmod |
 | J2 | JST B2P-VH 2x3.96mm_Vertical |
 | IC3 | SN74LV1T125DBVR |
